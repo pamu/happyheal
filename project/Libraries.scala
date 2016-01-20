@@ -90,6 +90,11 @@ object Libraries {
     lazy val smartTabLayout = "com.ogaclejapan.smarttablayout" % "library" % Versions.smartTabLayout
   }
 
+  /**
+  object androidCrop {
+    lazy val androidCrop = "com.soundcloud.android" % "android-crop" % Versions.androidCrop
+  } **/
+
   object test {
     lazy val specs2 = "org.specs2" %% "specs2-core" % Versions.specs2V % "test"
     lazy val androidTest = "com.google.android" % "android" % "4.1.1.4" % "test"

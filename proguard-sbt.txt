@@ -173,14 +173,24 @@
 -keep class android.support.v7.widget.SearchView$SearchAutoComplete { <init>(...); }
 
 # view res/layout/abc_screen_toolbar.xml #generated:36
+# view res/layout/toolbar.xml #generated:2
 -keep class android.support.v7.widget.Toolbar { <init>(...); }
 
 # view res/layout/abc_screen_simple.xml #generated:25
 # view res/layout/abc_screen_simple_overlay_action_mode.xml #generated:32
 -keep class android.support.v7.widget.ViewStubCompat { <init>(...); }
 
-# view AndroidManifest.xml #generated:16
+# view AndroidManifest.xml #generated:23
 -keep class android.test.InstrumentationTestRunner { <init>(...); }
+
+# view AndroidManifest.xml #generated:10
+-keep class com.happyheal.happyhealapp.app.HappyHealApp { <init>(...); }
+
+# view AndroidManifest.xml #generated:11
+-keep class com.happyheal.happyhealapp.ui.main.MainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:18
+-keep class com.soundcloud.android.crop.CropImageActivity { <init>(...); }
 
 # Copyright (C) 2015 The Android Open Source Project
 #
