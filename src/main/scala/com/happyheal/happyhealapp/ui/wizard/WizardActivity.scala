@@ -36,7 +36,7 @@ class WizardActivity
       startActivity(new Intent(getApplication, classOf[MainActivity]))
     }
     setContentView(TR.layout.wizard_layout.id)
-    runUi(initializeWizard)
+    runUi(initializeWizard(tutorialMode))
   }
 
 }
