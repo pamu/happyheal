@@ -30,8 +30,18 @@ object Steps {
   def steps(implicit contextWrapper: ContextWrapper): List[Step] = List(
     Step(
       R.drawable.ic_launcher,
-      "Title",
-      "Description"
+      "Scala programming language is functional and object oriented",
+      "Scala is both functional and object oriented language. Scala has rich language features like pattern matching, mixin composition using traits, java interoperability and tools for concurrency and parallel computing."
+    ),
+    Step(
+      R.drawable.ic_launcher,
+      "Java",
+      "Java is object oriented language"
+    ),
+    Step(
+      R.drawable.ic_launcher,
+      "Clojure",
+      "Clojure is functional language with lisp dialect"
     )
   )
 

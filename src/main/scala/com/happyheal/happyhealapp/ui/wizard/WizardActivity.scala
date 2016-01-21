@@ -4,11 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.happyheal.happyhealapp.TR
+import com.happyheal.happyhealapp.{TypedFindView, TR}
 import com.happyheal.happyhealapp.commons.ContextWrapperProvider
 import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
 import com.happyheal.happyhealapp.ui.main.MainActivity
 import macroid.{ContextWrapper, Contexts}
+import macroid.FullDsl._
 
 /**
   * Created by pnagarjuna on 21/01/16.
@@ -17,7 +18,9 @@ class WizardActivity
   extends AppCompatActivity
     with Contexts[AppCompatActivity]
     with ContextWrapperProvider
-    with PersistenceServicesComponentImpl {
+    with PersistenceServicesComponentImpl
+    with TypedFindView
+    with WizardComposer {
 
   override implicit lazy val contextProvider: ContextWrapper = activityContextWrapper
 
@@ -33,6 +36,7 @@ class WizardActivity
       startActivity(new Intent(getApplication, classOf[MainActivity]))
     }
     setContentView(TR.layout.wizard_layout.id)
+    runUi(initializeWizard)
   }
 
 }

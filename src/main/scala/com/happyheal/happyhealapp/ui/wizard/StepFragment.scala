@@ -1,10 +1,13 @@
 package com.happyheal.happyhealapp.ui.wizard
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.View.OnClickListener
 import android.view.{View, ViewGroup, LayoutInflater}
-import android.widget.{TextView, ImageView}
+import android.widget.{Button, TextView, ImageView}
 import com.happyheal.happyhealapp.R
+import com.happyheal.happyhealapp.ui.main.MainActivity
 import macroid.Contexts
 
 /**
@@ -26,6 +29,17 @@ class StepFragment extends Fragment
     val imageView = view.findViewById(R.id.image).asInstanceOf[ImageView]
     val titleView = view.findViewById(R.id.title).asInstanceOf[TextView]
     val descriptionView = view.findViewById(R.id.description).asInstanceOf[TextView]
+    val gotItBtn = view.findViewById(R.id.done).asInstanceOf[Button]
+    titleView.setText(step.title)
+    descriptionView.setText(step.description)
+    imageView.setImageResource(step.image)
+
+    gotItBtn.setOnClickListener(new OnClickListener {
+      override def onClick(view: View): Unit = {
+        startActivity(new Intent(getActivity, classOf[MainActivity]))
+      }
+    })
+
   }
 
 }

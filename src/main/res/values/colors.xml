@@ -9,4 +9,12 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#FF80AB</color>
+
+    <!-- Wizard Colors -->
+    <color name="wizard_line_button">#ffc5c5c5</color>
+    <color name="wizard_pager_default">#ffc7c7c7</color>
+    <color name="wizard_pager_selected">#444444</color>
+
+    <!-- Text colors -->
+    <color name="black">#000000</color>
 </resources>

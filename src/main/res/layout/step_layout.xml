@@ -1,19 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp">
 
-    <ImageButton android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/image"/>
 
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:id="@+id/title"/>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:layout_centerInParent="true">
 
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:id="@+id/description"/>
+        <ImageView android:layout_width="200dp"
+                   android:layout_height="200dp"
+                   android:id="@+id/image"
+                   android:layout_gravity="center"
+                   android:src="@drawable/ic_launcher"
+                   android:layout_margin="8dp"/>
 
-</LinearLayout>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="title"
+                  android:gravity="center"
+                  android:layout_gravity="center"
+                  android:textSize="32dp"
+                  android:maxLines="2"
+                  android:id="@+id/title"
+                  android:ellipsize="end"
+                  android:textColor="@color/black"
+                  android:layout_marginLeft="8dp"
+                  android:layout_marginRight="8dp"
+                  android:layout_marginTop="24dp"
+                  android:layout_marginBottom="24dp"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="description"
+                  android:textSize="16dp"
+                  android:gravity="center"
+                  android:layout_gravity="center"
+                  android:textStyle="bold"
+                  android:maxLines="3"
+                  android:ellipsize="end"
+                  android:id="@+id/description"
+                  android:layout_marginLeft="8dp"
+                  android:layout_marginRight="8dp"
+                  android:layout_marginTop="24dp"
+                  android:layout_marginBottom="24dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/pagination"
+                  android:layout_centerHorizontal="true"
+                  android:layout_alignParentBottom="true"
+                  android:layout_marginBottom="16dp"
+                  android:orientation="horizontal">
+        <ImageView android:layout_width="16dp"
+                   android:layout_height="16dp"
+                   android:src="@drawable/wizard_pager"
+                   android:layout_margin="4dp"/>
+    </LinearLayout>
+
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:text="Got it !!!"
+            android:textSize="16dp"
+            android:layout_marginBottom="16dp"
+            android:id="@+id/done"/>
+
+</RelativeLayout>
