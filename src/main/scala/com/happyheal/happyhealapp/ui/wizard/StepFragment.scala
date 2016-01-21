@@ -29,17 +29,9 @@ class StepFragment extends Fragment
     val imageView = view.findViewById(R.id.image).asInstanceOf[ImageView]
     val titleView = view.findViewById(R.id.title).asInstanceOf[TextView]
     val descriptionView = view.findViewById(R.id.description).asInstanceOf[TextView]
-    val gotItBtn = view.findViewById(R.id.done).asInstanceOf[Button]
     titleView.setText(step.title)
     descriptionView.setText(step.description)
     imageView.setImageResource(step.image)
-
-    gotItBtn.setOnClickListener(new OnClickListener {
-      override def onClick(view: View): Unit = {
-        startActivity(new Intent(getActivity, classOf[MainActivity]))
-      }
-    })
-
   }
 
 }
