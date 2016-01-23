@@ -8,6 +8,8 @@ import com.happyheal.happyhealapp.commons.ContextWrapperProvider
 import com.happyheal.happyhealapp.modules.notifications.{NotificationServices, NotificationServicesComponent}
 import com.happyheal.happyhealapp.ui.main.MainActivity
 
+import scala.util.Random
+
 /**
   * Created by pnagarjuna on 21/01/16.
   */
@@ -21,8 +23,10 @@ trait NotificationServicesComponentImpl
   class NotificationServicesImpl extends NotificationServices {
 
     override def showDemoNotification: Unit = {
+      val requestCode = 112233
+      val notificationId = Random.nextInt()
       val intent = new Intent(contextProvider.application, classOf[MainActivity])
-      val pendingIntent = PendingIntent.getActivity(contextProvider.application, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+      val pendingIntent = PendingIntent.getActivity(contextProvider.application, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
       val notification = new NotificationCompat.Builder(contextProvider.application)
         .setContentTitle("Demo Notification")
         .setContentText("Demo Content")
@@ -32,7 +36,7 @@ trait NotificationServicesComponentImpl
         .setAutoCancel(true)
         .build()
       val notifyManager = contextProvider.application.getSystemService(Context.NOTIFICATION_SERVICE).asInstanceOf[NotificationManager]
-      notifyManager.notify(1, notification)
+      notifyManager.notify(notificationId, notification)
     }
 
   }

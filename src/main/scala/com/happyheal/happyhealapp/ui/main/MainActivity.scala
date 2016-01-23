@@ -28,17 +28,24 @@ class MainActivity extends AppCompatActivity
 
   val LOG_TAG = classOf[MainActivity].getSimpleName
 
-  private val REQUEST_IMAGE_CAPTURE = 11069
+  private val REQUEST_IMAGE_CAPTURE = 111
+  private val REQUEST_OPEN_GALLERY = 222
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
     setContentView(TR.layout.main_layout.id)
     toolBar map setSupportActionBar
     getSupportActionBar.setHomeButtonEnabled(true)
-    preview map(_.setOnClickListener(new OnClickListener {
+
+    camera.map(_.setOnClickListener(new OnClickListener {
       override def onClick(view: View): Unit = {
-        notificationServices.showDemoNotification
         takePhoto()
+      }
+    }))
+
+    gallery.map(_.setOnClickListener(new OnClickListener {
+      override def onClick(view: View): Unit = {
+        openGallery()
       }
     }))
 
@@ -59,17 +66,26 @@ class MainActivity extends AppCompatActivity
   private def takePhoto(): Unit = {
     val takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
     if (takePhotoIntent.resolveActivity(getPackageManager) != null) {
-      startActivityForResult(takePhotoIntent, REQUEST_IMAGE_CAPTURE)
+      startActivityForResult(Intent.createChooser(takePhotoIntent, "Capture Prescription"), REQUEST_IMAGE_CAPTURE)
     } else {
       runUi(toast("No Application installed to Capture Photo.")(activityContextWrapper) <~ fry)
     }
+  }
+
+  private def openGallery(): Unit = {
+    val openGalleryIntent = new Intent()
+    openGalleryIntent.setType("image/*");
+    openGalleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+    if (openGalleryIntent.resolveActivity(getPackageManager) != null) {
+      startActivityForResult(Intent.createChooser(openGalleryIntent, "Select Prescription"), REQUEST_OPEN_GALLERY)
+    } else runUi(toast("No Application installed to Open Gallery.")(activityContextWrapper) <~ fry)
   }
 
   override def onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Unit = {
     if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
       val extras = data.getExtras
       val bitmap = extras.get("data").asInstanceOf[Bitmap]
-      preview.map(_.setImageBitmap(bitmap))
+      //TODO: do something with this bitmap
     }
   }
 

@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.widget.{LinearLayout, ImageView}
 import com.fortysevendeg.macroid.extras.ViewGroupTweaks._
 import com.fortysevendeg.macroid.extras.ViewTweaks._
+import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
 import com.happyheal.happyhealapp.ui.main.MainActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import macroid._
@@ -20,7 +21,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
   */
 trait WizardComposer {
 
-  self: TypedFindView =>
+  self: TypedFindView with PersistenceServicesComponentImpl =>
 
   lazy val wizardViewPager = Option(findView(TR.wizard_view_pager))
   lazy val paginationContent = Option(findView(TR.pagination))
@@ -74,6 +75,7 @@ trait WizardComposer {
       (gotIt <~ On.click {
         Ui {
           activityContextWrapper.original.get.map { activity =>
+            persistenceServices.setWizardSeen(true)
             activity.finish()
             activity.startActivity(new Intent(activityContextWrapper.application, classOf[MainActivity]))
           }
