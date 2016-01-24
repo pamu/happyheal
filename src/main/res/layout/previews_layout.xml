@@ -21,13 +21,15 @@
             android:layout_weight="1">
     </android.support.v7.widget.RecyclerView>
 
-    <Button android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="center"
-            android:textSize="24dp"
-            android:text="Next"
-            android:padding="16dp"
-            android:id="@+id/next"/>
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="bottom"
+              android:gravity="center"
+              android:textSize="24dp"
+              android:background="@color/colorPrimaryDark"
+              android:textColor="@color/white"
+              android:text="Next"
+              android:padding="8dp"
+              android:id="@+id/next"/>
 
 </LinearLayout>

@@ -39,7 +39,7 @@
             <ImageView android:id="@+id/action_image"
                        android:layout_width="100dp"
                        android:layout_height="100dp"
-                       android:src="@drawable/ic_launcher"
+                       android:src="@drawable/camera_icon"
                        android:layout_gravity="center"
                        android:layout_margin="16dp"/>
 
