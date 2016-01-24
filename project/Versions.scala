@@ -19,6 +19,7 @@ object Versions {
   val parseBolts = "1+"
   val materialProgressWheel = "1.7"
   val smartTabLayout = "1.6.0"
+  val showcaseView = "5.4.0"
   //val fileutils = "2.4"
   //val androidCrop = "1.0.1"
 }

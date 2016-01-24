@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.{GridLayoutManager, RecyclerView}
 import android.support.v7.widget.RecyclerView.ViewHolder
-import android.view.View.OnClickListener
 import android.view._
 import android.widget.ImageView
-import com.happyheal.happyhealapp.commons.ContextWrapperProvider
+import com.github.amlcurran.showcaseview.ShowcaseView.Builder
+import com.happyheal.happyhealapp.commons.{ToolbarActionItemTarget, ContextWrapperProvider}
 import com.happyheal.happyhealapp.ui.otp.OTPActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import com.squareup.picasso.Picasso
@@ -43,15 +43,23 @@ class PreviewsActivity
       }
     })
 
-//    runUi(previews <~
-//      rvAdapter(new PreviewsAdapter(
-//        List(
-//          Preview(Uri.parse("http://fb.com")),
-//          Preview(Uri.parse("http://fb.com"))
-//        )
-//      )) <~
-//      rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper)) <~
-//      rvLayoutManager(new GridLayoutManager(this, 2)))
+    new Builder(this)
+      .withMaterialShowcase()
+      .setTarget(new ToolbarActionItemTarget(toolBar.get, R.id.plus))
+      .setContentText("Add Prescription pictures as many as possible for more clarity using Plus Button")
+      .setStyle(R.style.CustomShowcaseTheme2)
+      .hideOnTouchOutside()
+      .build()
+
+    //    runUi(previews <~
+    //      rvAdapter(new PreviewsAdapter(
+    //        List(
+    //          Preview(Uri.parse("http://fb.com")),
+    //          Preview(Uri.parse("http://fb.com"))
+    //        )
+    //      )) <~
+    //      rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper)) <~
+    //      rvLayoutManager(new GridLayoutManager(this, 2)))
 
   }
 

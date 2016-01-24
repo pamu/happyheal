@@ -90,6 +90,9 @@ object Libraries {
     lazy val smartTabLayout = "com.ogaclejapan.smarttablayout" % "library" % Versions.smartTabLayout
   }
 
+  object showcaseView {
+    lazy val showCaseView = "com.github.amlcurran.showcaseview" % "library" % Versions.showcaseView
+  }
 
 //  object fileutils {
 //    lazy val fileutils = "commons-io" % "commons-io" % Versions.fileutils

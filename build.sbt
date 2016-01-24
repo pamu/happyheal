@@ -11,6 +11,7 @@ import Libraries.test._
 import android.Keys._
 import android.PromptPasswordsSigningConfig
 import Libraries.smartTabLayout._
+import Libraries.showcaseView._
 //import Libraries.fileutils._
 //import Libraries.androidCrop._
 
@@ -48,6 +49,7 @@ libraryDependencies ++= Seq(
   aar(playServicesBase),
   aar(materialProgressWheel),
   aar(smartTabLayout),
+  aar(showCaseView),
   //fileutils,
   //aar(androidCrop),
   apacheCommonsLang,
