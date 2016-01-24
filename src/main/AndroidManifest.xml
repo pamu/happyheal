@@ -8,10 +8,12 @@
             android:targetSdkVersion="23"/>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:allowBackup="true"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
@@ -32,7 +34,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.previews.PreviewsActivity" android:label="Previews"></activity>
+        <activity android:name=".ui.previews.PreviewsActivity"
+                  android:label="Previews"></activity>
+
+        <activity android:name=".ui.otp.OTPActivity"
+                  android:label="OTP"
+                  android:parentActivityName=".ui.previews.PreviewsActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.previews.PreviewsActivity"/>
+        </activity>
 
         <activity android:name=".SampleActivity" android:label="Sample"/>
 

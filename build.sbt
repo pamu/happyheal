@@ -13,7 +13,6 @@ import android.PromptPasswordsSigningConfig
 import Libraries.smartTabLayout._
 //import Libraries.fileutils._
 //import Libraries.androidCrop._
-import Libraries.sendOTP._
 
 android.Plugin.androidBuild
 
@@ -51,7 +50,6 @@ libraryDependencies ++= Seq(
   aar(smartTabLayout),
   //fileutils,
   //aar(androidCrop),
-  aar(sendOTP),
   apacheCommonsLang,
   json4s,
   picasso,

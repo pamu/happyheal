@@ -1,17 +1,18 @@
 package com.happyheal.happyhealapp.ui.previews
 
-import android.content.Context
+import android.content.{Intent, Context}
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.{GridLayoutManager, LinearLayoutManager, RecyclerView}
+import android.support.v7.widget.{GridLayoutManager, RecyclerView}
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.{LayoutInflater, ViewGroup, View}
 import android.widget.ImageView
 import com.happyheal.happyhealapp.commons.ContextWrapperProvider
+import com.happyheal.happyhealapp.ui.otp.OTPActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import com.squareup.picasso.Picasso
-import macroid.{ContextWrapper, ActivityContextWrapper, Contexts}
+import macroid.{Ui, ContextWrapper, ActivityContextWrapper, Contexts}
 import com.fortysevendeg.macroid.extras.RecyclerViewTweaks._
 import macroid.FullDsl._
 
@@ -34,8 +35,17 @@ class PreviewsActivity
     toolBar map setSupportActionBar
     getSupportActionBar.setHomeButtonEnabled(true)
 
+    runUi(next <~ On.click {
+      Ui {
+        val otpIntent = new Intent(getApplicationContext, classOf[OTPActivity])
+        startActivity(otpIntent)
+      }
+    })
+
     runUi(previews <~
-      rvAdapter(new PreviewsAdapter(List(Preview(Uri.parse("http://fb.com"))))) <~
+      rvAdapter(new PreviewsAdapter(
+        List(Preview(Uri.parse("http://fb.com")),
+          Preview(Uri.parse("http://fb.com"))))) <~
       rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper)) <~
       rvLayoutManager(new GridLayoutManager(this, 2)))
 
@@ -52,8 +62,8 @@ class PreviewViewHolder(layout: View) extends ViewHolder(layout) {
     Picasso
       .`with`(layout.getContext)
       .load(preview.uri)
-      .placeholder(R.drawable.ic_launcher)
-      .error(R.drawable.ic_launcher)
+      .placeholder(R.drawable.plus)
+      .error(R.drawable.plus)
       .into(imageView)
   }
 

@@ -90,9 +90,6 @@ object Libraries {
     lazy val smartTabLayout = "com.ogaclejapan.smarttablayout" % "library" % Versions.smartTabLayout
   }
 
-  object sendOTP {
-    lazy val sendOTP = "com.msg91.sendotp.library" % "library" % Versions.sendOTP
-  }
 
 //  object fileutils {
 //    lazy val fileutils = "commons-io" % "commons-io" % Versions.fileutils

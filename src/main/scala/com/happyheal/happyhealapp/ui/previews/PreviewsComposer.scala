@@ -11,5 +11,6 @@ trait PreviewsComposer {
 
   lazy val toolBar = Option(findView(TR.toolbar))
   lazy val previews = Option(findView(TR.image_previews))
+  lazy val next = Option(findView(TR.next))
 
 }
