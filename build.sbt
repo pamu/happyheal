@@ -11,7 +11,9 @@ import Libraries.test._
 import android.Keys._
 import android.PromptPasswordsSigningConfig
 import Libraries.smartTabLayout._
+//import Libraries.fileutils._
 //import Libraries.androidCrop._
+import Libraries.sendOTP._
 
 android.Plugin.androidBuild
 
@@ -47,7 +49,9 @@ libraryDependencies ++= Seq(
   aar(playServicesBase),
   aar(materialProgressWheel),
   aar(smartTabLayout),
+  //fileutils,
   //aar(androidCrop),
+  aar(sendOTP),
   apacheCommonsLang,
   json4s,
   picasso,
@@ -75,3 +79,9 @@ useProguard in Android := true
 proguardOptions in Android ++= Settings.proguardCommons
 
 proguardCache in Android := Seq.empty
+
+packagingOptions in Android := PackagingOptions(
+  Seq( "META-INF/LICENSE",
+    "META-INF/LICENSE.txt",
+    "META-INF/NOTICE",
+    "META-INF/NOTICE.txt"))
