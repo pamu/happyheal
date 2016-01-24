@@ -127,3 +127,7 @@ class MainActivity extends AppCompatActivity
     startActivity(previewIntent)
   }
 }
+
+object Photo {
+
+}

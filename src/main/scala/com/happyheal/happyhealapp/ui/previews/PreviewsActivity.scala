@@ -43,15 +43,15 @@ class PreviewsActivity
       }
     })
 
-    runUi(previews <~
-      rvAdapter(new PreviewsAdapter(
-        List(
-          Preview(Uri.parse("http://fb.com")),
-          Preview(Uri.parse("http://fb.com"))
-        )
-      )) <~
-      rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper)) <~
-      rvLayoutManager(new GridLayoutManager(this, 2)))
+//    runUi(previews <~
+//      rvAdapter(new PreviewsAdapter(
+//        List(
+//          Preview(Uri.parse("http://fb.com")),
+//          Preview(Uri.parse("http://fb.com"))
+//        )
+//      )) <~
+//      rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper)) <~
+//      rvLayoutManager(new GridLayoutManager(this, 2)))
 
   }
 
