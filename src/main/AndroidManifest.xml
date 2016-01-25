@@ -47,15 +47,9 @@
 
         <activity android:name=".SampleActivity" android:label="Sample"/>
 
-        <service android:name=".service.SyncService"
-                 android:process="remote"></service>
+        <service android:name=".service.SyncService"></service>
 
-        <receiver android:name=".receiver.BootReceiver">
-            <intent-filter>
-                <action android:name="android.intent.ACTION.BOOT_COMPLETED"></action>
-            </intent-filter>
-        </receiver>
-
+        <receiver android:name=".receiver.BootReceiver"></receiver>
     </application>
 
 </manifest>

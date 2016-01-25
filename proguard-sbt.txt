@@ -190,7 +190,7 @@
 # view res/layout/abc_screen_simple_overlay_action_mode.xml #generated:32
 -keep class android.support.v7.widget.ViewStubCompat { <init>(...); }
 
-# view AndroidManifest.xml #generated:30
+# view AndroidManifest.xml #generated:38
 -keep class android.test.InstrumentationTestRunner { <init>(...); }
 
 # view AndroidManifest.xml #generated:25
@@ -198,6 +198,12 @@
 
 # view AndroidManifest.xml #generated:11
 -keep class com.happyheal.happyhealapp.app.HappyHealApp { <init>(...); }
+
+# view AndroidManifest.xml #generated:29
+-keep class com.happyheal.happyhealapp.receiver.BootReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:27
+-keep class com.happyheal.happyhealapp.service.SyncService { <init>(...); }
 
 # view AndroidManifest.xml #generated:12
 -keep class com.happyheal.happyhealapp.ui.main.MainActivity { <init>(...); }
