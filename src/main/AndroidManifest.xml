@@ -26,7 +26,7 @@
         </activity>
 
         <activity android:name=".ui.wizard.WizardActivity"
-                  android:label="Wizard">
+                  android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -35,7 +35,12 @@
         </activity>
 
         <activity android:name=".ui.previews.PreviewsActivity"
-                  android:label="Previews"></activity>
+                  android:parentActivityName=".ui.main.MainActivity"
+                  android:label="Previews">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.main.MainActivity"/>
+        </activity>
 
         <activity android:name=".ui.otp.OTPActivity"
                   android:label="OTP"

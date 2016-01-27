@@ -10,7 +10,8 @@ import android.view._
 import android.widget.ImageView
 import com.github.amlcurran.showcaseview.ShowcaseView.Builder
 import com.happyheal.happyhealapp.commons.{ToolbarActionItemTarget, ContextWrapperProvider}
-import com.happyheal.happyhealapp.ui.main.MainActivity
+import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
+import com.happyheal.happyhealapp.ui.main.{ImageCapture, MainActivity}
 import com.happyheal.happyhealapp.ui.otp.OTPActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import com.squareup.picasso.Picasso
@@ -25,7 +26,8 @@ class PreviewsActivity
     with Contexts[AppCompatActivity]
     with ContextWrapperProvider
     with TypedFindView
-    with PreviewsComposer {
+    with PreviewsComposer
+    with PersistenceServicesComponentImpl {
 
 
   override implicit lazy val contextProvider: ContextWrapper = activityContextWrapper
@@ -35,6 +37,8 @@ class PreviewsActivity
     setContentView(TR.layout.previews_layout.id)
     toolBar map setSupportActionBar
     getSupportActionBar.setHomeButtonEnabled(true)
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true)
+    getSupportActionBar().setDisplayShowHomeEnabled(true)
 
     runUi(next <~ On.click {
       Ui {
@@ -51,19 +55,14 @@ class PreviewsActivity
       .hideOnTouchOutside()
       .build()
 
-    runUi(addPreviews(List(Preview(Uri.parse("http://fb.com")))))
+    //runUi(empty)
+    runUi(addPreviews(List(Preview(Uri.parse("file://" + persistenceServices.getFirstPreview())))))
 
   }
 
 
   override def onResume(): Unit = {
     super.onResume()
-    val intent = getIntent()
-
-    if (intent != null) {
-      val link = intent.getExtras.getString(MainActivity.LINK)
-    }
-
   }
 
   override def onCreateOptionsMenu(menu: Menu): Boolean = {
@@ -74,7 +73,6 @@ class PreviewsActivity
   override def onOptionsItemSelected(item: MenuItem): Boolean = {
     item.getItemId match {
       case R.id.plus =>
-
         return true
       case _ => return super.onOptionsItemSelected(item)
     }
@@ -104,7 +102,10 @@ class PreviewsAdapter(previewList: List[Preview])(implicit activityContextWrappe
 
   override def getItemCount: Int = previewList.length
 
-  override def onBindViewHolder(vh: PreviewViewHolder, i: Int): Unit = vh.bind(previewList(i))
+  override def onBindViewHolder(vh: PreviewViewHolder, i: Int): Unit = {
+    runUi(toast(s"${previewList(i).uri.getPath}") <~ fry)
+    vh.bind(previewList(i))
+  }
 
   override def onCreateViewHolder(viewGroup: ViewGroup, i: Int): PreviewViewHolder = {
     val inflater = activityContextWrapper.application.getSystemService(Context.LAYOUT_INFLATER_SERVICE).asInstanceOf[LayoutInflater]

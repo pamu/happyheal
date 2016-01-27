@@ -39,7 +39,7 @@ trait PersistenceServicesComponentImpl
       userDataPreferences.getString(firstPreview, "")
 
     override def setFirstPreview(previewLink: String): Unit =
-      userDataPreferences.edit().putString(firstPreview, firstPreview).commit()
+      userDataPreferences.edit().putString(firstPreview, previewLink).commit()
 
     override def clearUserPreferences(): Unit = userDataPreferences.edit().clear().commit()
   }

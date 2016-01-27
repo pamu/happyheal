@@ -3,8 +3,9 @@ package com.happyheal.happyhealapp.ui.previews
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.DialogInterface.OnClickListener
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.{LinearLayoutManager, GridLayoutManager}
 import android.widget.ArrayAdapter
+import com.fortysevendeg.macroid.extras.DeviceMediaQueries._
 import com.happyheal.happyhealapp.{TR, TypedFindView}
 import macroid.FullDsl._
 import com.fortysevendeg.macroid.extras.ViewTweaks._
@@ -29,7 +30,8 @@ trait PreviewsComposer {
   lazy val container = Option(findView(TR.container))
 
   def empty(implicit activityContextWrapper: ActivityContextWrapper) =
-    (container <~ vVisible) ~
+    (next <~ vGone) ~
+      (container <~ vVisible) ~
       (noPreviewsContainer <~ vVisible) ~
       (message <~ vVisible) ~
       (message <~ tvText("No Medical Prescriptions Added")) ~
@@ -62,11 +64,18 @@ trait PreviewsComposer {
       })
 
 
-  def addPreviews(list: List[Preview])(implicit activityContextWrapper: ActivityContextWrapper) =
-    (container <~ vGone) ~
-      (previews <~ vVisible) ~
+  def addPreviews(list: List[Preview])(implicit activityContextWrapper: ActivityContextWrapper) = {
+    val layoutManager =
+      landscapeTablet ?
+        new GridLayoutManager(activityContextWrapper.getOriginal, 3) |
+        tablet ?
+          new GridLayoutManager(activityContextWrapper.getOriginal, 2) | new LinearLayoutManager(activityContextWrapper.getOriginal)
+
+    (previews <~ vVisible) ~
+      (container <~ vGone) ~
       (previews <~
-        rvLayoutManager(new GridLayoutManager(activityContextWrapper.getOriginal, 2)) <~
         rvAdapter(new PreviewsAdapter(list)) <~
+        rvLayoutManager(layoutManager) <~
         rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper)))
+  }
 }
