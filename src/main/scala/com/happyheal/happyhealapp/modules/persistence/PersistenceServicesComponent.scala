@@ -10,6 +10,9 @@ trait PersistenceServices {
   def setWizardSeen(seen: Boolean): Unit
   def setCurrentOrderKey(key: String): Unit
   def getCurrentOrderKey(defaultValue: String): String
+  def getFirstPreview(): String
+  def setFirstPreview(previewLink: String): Unit
+  def clearUserPreferences(): Unit
 }
 
 trait PersistenceServicesComponent {

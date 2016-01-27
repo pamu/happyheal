@@ -4,17 +4,17 @@ import android.content.{Intent, Context}
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.{GridLayoutManager, RecyclerView}
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view._
 import android.widget.ImageView
 import com.github.amlcurran.showcaseview.ShowcaseView.Builder
 import com.happyheal.happyhealapp.commons.{ToolbarActionItemTarget, ContextWrapperProvider}
+import com.happyheal.happyhealapp.ui.main.MainActivity
 import com.happyheal.happyhealapp.ui.otp.OTPActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import com.squareup.picasso.Picasso
 import macroid.{Ui, ContextWrapper, ActivityContextWrapper, Contexts}
-import com.fortysevendeg.macroid.extras.RecyclerViewTweaks._
 import macroid.FullDsl._
 
 /**
@@ -51,15 +51,18 @@ class PreviewsActivity
       .hideOnTouchOutside()
       .build()
 
-    //    runUi(previews <~
-    //      rvAdapter(new PreviewsAdapter(
-    //        List(
-    //          Preview(Uri.parse("http://fb.com")),
-    //          Preview(Uri.parse("http://fb.com"))
-    //        )
-    //      )) <~
-    //      rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper)) <~
-    //      rvLayoutManager(new GridLayoutManager(this, 2)))
+    runUi(addPreviews(List(Preview(Uri.parse("http://fb.com")))))
+
+  }
+
+
+  override def onResume(): Unit = {
+    super.onResume()
+    val intent = getIntent()
+
+    if (intent != null) {
+      val link = intent.getExtras.getString(MainActivity.LINK)
+    }
 
   }
 

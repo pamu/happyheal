@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res/com.happyheal.happyhealapp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <LinearLayout
             android:orientation="vertical"
-            android:layout_alignParentTop="true"
+            android:layout_gravity="top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <include
@@ -12,48 +15,31 @@
                 layout="@layout/toolbar"/>
     </LinearLayout>
 
-    <!--<ImageView android:id="@+id/preview"-->
-    <!--android:layout_width="300dp"-->
-    <!--android:layout_height="500dp"-->
-    <!--android:layout_centerInParent="true"-->
-    <!--android:src="@drawable/ic_launcher"/>-->
-    <!---->
-    <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_view"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            card_view:cardCornerRadius="4dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:padding="16dp">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:background="@color/colorPrimary">
+
 
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
+                      android:layout_weight="1"
                       android:orientation="vertical"
-                      android:layout_gravity="center">
-
-
-            <ImageView android:id="@+id/action_image"
-                       android:layout_width="100dp"
-                       android:layout_height="100dp"
-                       android:src="@drawable/camera_icon"
-                       android:layout_gravity="center"
-                       android:layout_margin="16dp"/>
+                      android:id="@+id/title_container">
 
             <TextView android:id="@+id/title"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:gravity="center_horizontal"
+                      android:gravity="center"
                       android:layout_gravity="center_horizontal"
-                      android:textSize="32dp"
-                      android:textColor="@color/black"
+                      android:textSize="36dp"
+                      android:textStyle="bold"
+                      android:textColor="@color/white"
                       android:maxLines="2"
                       android:ellipsize="end"
                       android:text="Scan Prescription"
-                      android:layout_margin="16dp"/>
+                      android:layout_weight="1"/>
 
 
             <TextView android:id="@+id/description"
@@ -61,53 +47,49 @@
                       android:layout_height="wrap_content"
                       android:layout_gravity="center_horizontal"
                       android:gravity="center"
-                      android:maxLines="3"
-                      android:textSize="16dp"
+                      android:maxLines="4"
+                      android:textSize="18dp"
                       android:ellipsize="end"
-                      android:textColor="@color/black"
-                      android:text="Capture the Photo of the full prescription or pick the already scanned prescription from the Gallery"
-                      android:layout_marginTop="16dp"
-                      android:layout_marginLeft="16dp"
-                      android:layout_marginRight="16dp"
-                      android:layout_marginBottom="32dp"/>
-
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="2dp"
-                          android:background="@color/wizard_line_button">
-            </LinearLayout>
-
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal">
-                <TextView android:id="@+id/gallery"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_gravity="center"
-                          android:gravity="center"
-                          android:text="Gallery"
-                          android:textStyle="bold"
-                          android:textColor="@color/black"
-                          android:textSize="16dp"
-                          android:padding="16dp"
-                          android:layout_weight="1"/>
-                <LinearLayout android:layout_width="2dp"
-                              android:layout_height="match_parent"
-                              android:background="@color/wizard_line_button">
-                </LinearLayout>
-                <TextView android:id="@+id/camera"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:gravity="center"
-                          android:text="Camera"
-                          android:textColor="@color/black"
-                          android:textStyle="bold"
-                          android:padding="16dp"
-                          android:textSize="16dp"
-                          android:layout_weight="1"/>
-            </LinearLayout>
+                      android:textColor="@color/white"
+                      android:layout_weight="1"
+                      android:paddingLeft="32dp"
+                      android:paddingRight="32dp"
+                      android:text="Make sure the Picture of Medical Prescription is clear and in good light"/>
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
 
-</RelativeLayout>
+        <!--<ImageView android:id="@+id/action_image"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:src="@drawable/camera_icon"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_margin="16dp"/>-->
+
+        <LinearLayout android:id="@+id/fab_container"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:layout_weight="1">
+            <LinearLayout android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:orientation="vertical"
+                          android:id="@+id/dummy"
+                          android:layout_weight="1"></LinearLayout>
+            <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_camera_white_48dp"
+                    app:layout_anchor="@id/dummy"
+                    app:layout_anchorGravity="bottom|center"
+                    android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

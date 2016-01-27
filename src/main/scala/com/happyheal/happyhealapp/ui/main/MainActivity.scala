@@ -45,17 +45,17 @@ class MainActivity extends AppCompatActivity
     toolBar map setSupportActionBar
     getSupportActionBar.setHomeButtonEnabled(true)
 
-    camera.map(_.setOnClickListener(new OnClickListener {
-      override def onClick(view: View): Unit = {
-        takePhoto()
-      }
-    }))
-
-    gallery.map(_.setOnClickListener(new OnClickListener {
-      override def onClick(view: View): Unit = {
-        openGallery()
-      }
-    }))
+//    camera.map(_.setOnClickListener(new OnClickListener {
+//      override def onClick(view: View): Unit = {
+//        takePhoto()
+//      }
+//    }))
+//
+//    gallery.map(_.setOnClickListener(new OnClickListener {
+//      override def onClick(view: View): Unit = {
+//        openGallery()
+//      }
+//    }))
 
   }
 
@@ -95,10 +95,11 @@ class MainActivity extends AppCompatActivity
       val bitmap = extras.get("data").asInstanceOf[Bitmap]
       import scala.concurrent.ExecutionContext.Implicits.global
       Future {
-//        val count = cacheDir.listFiles(new FileFilter {
-//          override def accept(file: File): Boolean =
-//            FilenameUtils.getExtension(file.getName).equalsIgnoreCase("png")
-//        }).length
+        /**
+          * val count = cacheDir.listFiles(new FileFilter {
+          * override def accept(file: File): Boolean =
+          * FilenameUtils.getExtension(file.getName).equalsIgnoreCase("png")
+          * }).length **/
         val file = new File(getCacheDir, UUID.randomUUID().toString + ".png")
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(file))
         Uri.fromFile(file)
@@ -123,11 +124,11 @@ class MainActivity extends AppCompatActivity
 
   private def launchPreviews(uri: Uri): Unit = {
     val previewIntent = new Intent(getApplication, classOf[PreviewsActivity])
-    previewIntent.putExtra("link", uri.getPath)
+    previewIntent.putExtra(MainActivity.LINK, uri.getPath)
     startActivity(previewIntent)
   }
 }
 
-object Photo {
-
+object MainActivity {
+  val LINK = "link"
 }

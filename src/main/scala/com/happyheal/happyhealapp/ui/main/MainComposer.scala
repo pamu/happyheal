@@ -10,10 +10,8 @@ trait MainComposer {
   self: TypedFindView =>
 
   lazy val toolBar = Option(findView(TR.toolbar))
-  lazy val actionImage = Option(findView(TR.action_image))
+//  lazy val actionImage = Option(findView(TR.action_image))
   lazy val title = Option(findView(TR.title))
   lazy val description = Option(findView(TR.description))
-  lazy val gallery = Option(findView(TR.gallery))
-  lazy val camera = Option(findView(TR.camera))
 
 }
