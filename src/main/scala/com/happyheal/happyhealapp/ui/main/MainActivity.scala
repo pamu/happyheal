@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.view.{Menu, MenuItem}
+import android.widget.ArrayAdapter
 import com.happyheal.happyhealapp.commons.ContextWrapperProvider
 import com.happyheal.happyhealapp.modules.notifications.impl.NotificationServicesComponentImpl
 import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
@@ -67,6 +68,7 @@ class MainActivity extends AppCompatActivity
       launchPreviews()
     } else if (requestCode == ImageCapture.REQUEST_OPEN_GALLERY && resultCode == Activity.RESULT_OK) {
       val uri = data.getData
+
       launchPreviews()
     }
   }
@@ -83,7 +85,7 @@ object ImageCapture {
 
   val REQUEST_OPEN_GALLERY = 222
 
-  val imagesFolderName = "happy_heal"
+  private val imagesFolderName = ".happy_heal"
 
   def imagesFolder(implicit activityContextWrapper: ActivityContextWrapper) = {
     val folder = new File(android.os.Environment.getExternalStorageDirectory, ImageCapture.imagesFolderName)
@@ -93,7 +95,7 @@ object ImageCapture {
 
   def randomFile(extension: String)(implicit activityContextWrapper: ActivityContextWrapper): File = {
     val file = new File(imagesFolder, UUID.randomUUID().toString + "." + extension.trim)
-    if (! file.exists()) file.createNewFile()
+    //if (! file.exists()) file.createNewFile()
     file
   }
 
@@ -117,6 +119,36 @@ object ImageCapture {
       activityContextWrapper.getOriginal.startActivityForResult(
         Intent.createChooser(openGalleryIntent, "Select Prescription"), REQUEST_OPEN_GALLERY)
     } else runUi(toast("No Application installed to Open Gallery.")(activityContextWrapper) <~ fry)
+  }
+
+  def showDialog(implicit activityContextWrapper: ActivityContextWrapper) = {
+    val builder = new AlertDialog.Builder(activityContextWrapper.getOriginal)
+    builder.setTitle("Source")
+
+    val arrayAdapter = new ArrayAdapter[String](
+      activityContextWrapper.getOriginal,
+      android.R.layout.select_dialog_item, Array[String]("Camera", "Gallery"))
+
+    builder.setAdapter(arrayAdapter, new OnClickListener {
+      override def onClick(dialogInterface: DialogInterface, i: Int): Unit = {
+        i match {
+          case 0 =>
+            val file = randomFile("jpeg")
+            takePhoto(file)
+          case 1 =>
+            openGallery
+          case 2 =>
+        }
+      }
+    })
+
+    builder.setNegativeButton("Cancel", new OnClickListener {
+      override def onClick(dialogInterface: DialogInterface, i: Int): Unit = {
+        dialogInterface.dismiss()
+      }
+    })
+
+    builder.show()
   }
 
 }

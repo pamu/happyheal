@@ -94,9 +94,9 @@ object Libraries {
     lazy val showCaseView = "com.github.amlcurran.showcaseview" % "library" % Versions.showcaseView
   }
 
-//  object fileutils {
-//    lazy val fileutils = "commons-io" % "commons-io" % Versions.fileutils
-//  }
+  object fileutils {
+    lazy val fileutils = "commons-io" % "commons-io" % Versions.fileutils
+  }
 
   /**
   object androidCrop {

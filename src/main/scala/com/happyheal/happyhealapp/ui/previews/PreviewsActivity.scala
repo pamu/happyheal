@@ -1,8 +1,8 @@
 package com.happyheal.happyhealapp.ui.previews
 
-import java.io.File
+import java.io.{FilenameFilter, File}
 
-import android.content.{Intent, Context}
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
@@ -13,12 +13,10 @@ import com.github.amlcurran.showcaseview.ShowcaseView.Builder
 import com.happyheal.happyhealapp.commons.ContextWrapperProvider
 import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
 import com.happyheal.happyhealapp.ui.main.ImageCapture
-import com.happyheal.happyhealapp.ui.otp.OTPActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import com.squareup.picasso.Picasso
-import macroid.{ContextWrapper, ActivityContextWrapper, Contexts}
+import macroid._
 import macroid.FullDsl._
-import macroid.Ui
 import com.happyheal.happyhealapp.commons.ToolbarActionItemTarget
 
 /**
@@ -43,29 +41,28 @@ class PreviewsActivity
     getSupportActionBar().setDisplayHomeAsUpEnabled(true)
     getSupportActionBar().setDisplayShowHomeEnabled(true)
 
-    runUi(next <~ On.click {
-      Ui {
-        val otpIntent = new Intent(getApplicationContext, classOf[OTPActivity])
-        startActivity(otpIntent)
-      }
-    })
+    //runUi(empty)
 
-    new Builder(this)
-      .withMaterialShowcase()
-      .setTarget(new ToolbarActionItemTarget(toolBar.get, R.id.plus))
-      .setContentText("Add Prescription pictures as many as possible for more clarity using Plus Button")
-      .setStyle(R.style.CustomShowcaseTheme2)
-      .hideOnTouchOutside()
-      .build()
+//    new Builder(this)
+//      .withMaterialShowcase()
+//      .setTarget(new ToolbarActionItemTarget(toolBar.get, R.id.plus))
+//      .setContentText("Add Prescription pictures as many as possible for more clarity using Plus Button")
+//      .setStyle(R.style.CustomShowcaseTheme2)
+//      .hideOnTouchOutside()
+//      .build()
 
 
-    val files = ImageCapture.imagesFolder.listFiles
-    if (files != null) {
-      val previews = files.map { file =>
-        Preview(file)
-      }.toList
-      runUi(addPreviews(previews))
-    }
+        val files = ImageCapture.imagesFolder.listFiles(new FilenameFilter {
+          override def accept(file: File, s: String): Boolean = true
+        })
+        if (files != null) {
+          val previews = files.map { file =>
+            Preview(file)
+          }.toList
+          runUi(addPreviews(previews))
+        }
+
+
   }
 
 

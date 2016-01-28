@@ -1,11 +1,7 @@
 package com.happyheal.happyhealapp.ui.previews
 
-import android.app.AlertDialog
-import android.content.DialogInterface
-import android.content.DialogInterface.OnClickListener
-import android.support.v7.widget.{LinearLayoutManager, GridLayoutManager}
-import android.widget.ArrayAdapter
-import com.fortysevendeg.macroid.extras.DeviceMediaQueries._
+import android.content.Intent
+import com.happyheal.happyhealapp.ui.otp.OTPActivity
 import com.happyheal.happyhealapp.{TR, TypedFindView}
 import macroid.FullDsl._
 import com.fortysevendeg.macroid.extras.ViewTweaks._
@@ -23,55 +19,35 @@ trait PreviewsComposer {
   lazy val toolBar = Option(findView(TR.toolbar))
   lazy val previews = Option(findView(TR.image_previews))
   lazy val next = Option(findView(TR.next))
-  lazy val message = Option(findView(TR.message))
   lazy val addPreview = Option(findView(TR.add_preview))
-  lazy val noPreviewsContainer = Option(findView(TR.no_previews))
-  lazy val loading = Option(findView(TR.loading))
-  lazy val container = Option(findView(TR.container))
+  lazy val messageCenter = Option(findView(TR.message_center))
+  lazy val message = Option(findView(TR.message))
+
 
   def empty(implicit activityContextWrapper: ActivityContextWrapper) =
     (next <~ vGone) ~
-      (container <~ vVisible) ~
-      (noPreviewsContainer <~ vVisible) ~
+      (messageCenter <~ vVisible) ~
       (message <~ vVisible) ~
       (message <~ tvText("No Medical Prescriptions Added")) ~
       (addPreview <~ vVisible) ~
-      (addPreview <~ vVisible) ~
       (addPreview <~ On.click {
         Ui {
-          val builder = new AlertDialog.Builder(activityContextWrapper.getOriginal)
-          builder.setTitle("Source")
-
-          val arrayAdapter = new ArrayAdapter[String](activityContextWrapper.getOriginal,
-            android.R.layout.select_dialog_singlechoice)
-
-          builder.setNegativeButton("Cancel", new OnClickListener {
-            override def onClick(dialogInterface: DialogInterface, i: Int): Unit = {
-              dialogInterface.dismiss()
-            }
-          })
-
-          builder.setAdapter(arrayAdapter, new OnClickListener {
-            override def onClick(dialogInterface: DialogInterface, i: Int): Unit = {
-              i match {
-                case 0 => runUi(toast("0 selected") <~ fry)
-                case 1 => runUi(toast("1 selected") <~ fry)
-              }
-            }
-          })
-
+          runUi(toast("hello world")(activityContextWrapper) <~ fry)
         }
       })
 
 
   def addPreviews(list: List[Preview])(implicit activityContextWrapper: ActivityContextWrapper) = {
     (previews <~ vVisible) ~
-      (container <~ vGone) ~
+      (next <~ On.click {
+        Ui {
+          val otpIntent = new Intent(activityContextWrapper.getOriginal, classOf[OTPActivity])
+          activityContextWrapper.getOriginal.startActivity(otpIntent)
+        }
+      }) ~
       (previews <~
         rvAdapter(new PreviewsAdapter(list)) <~
         rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper)))
   }
 
-  def
-  
 }

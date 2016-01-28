@@ -1,15 +1,13 @@
 package com.happyheal.happyhealapp.ui.otp
 
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.{MenuItem, Menu}
 import com.happyheal.happyhealapp.commons.ContextWrapperProvider
-import com.happyheal.happyhealapp.modules.smsservices.impl.SMSServicesComponentImpl
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
+import com.sinch.verification.VerificationListener
 import macroid.{ContextWrapper, Contexts}
-
-import scala.util.{Failure, Success}
+import macroid.FullDsl._
 
 /**
   * Created by pnagarjuna on 24/01/16.
@@ -19,12 +17,10 @@ class OTPActivity
     with Contexts[AppCompatActivity]
     with TypedFindView
     with ContextWrapperProvider
-    with OTPComposer
-    with SMSServicesComponentImpl {
+    with VerificationListener
+    with OTPComposer {
 
   override lazy implicit val contextProvider: ContextWrapper = activityContextWrapper
-
-  private var mDialog: ProgressDialog = _
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -33,22 +29,8 @@ class OTPActivity
     getSupportActionBar.setHomeButtonEnabled(true)
     getSupportActionBar().setDisplayHomeAsUpEnabled(true)
     getSupportActionBar().setDisplayShowHomeEnabled(true)
-    mDialog = new ProgressDialog(this)
-    mDialog.setTitle("Phone Verification")
-    mDialog.setMessage("verifying ... Please wait ...")
-    mDialog.setIndeterminate(true)
-    mDialog.show()
-    import scala.concurrent.ExecutionContext.Implicits.global
-    smsServices.verify("+919676905479") onComplete {
-      case Success(value) =>
-        mDialog.dismiss()
-      case Failure(th) =>
-        mDialog.dismiss()
-    }
-  }
 
-  override def onResume(): Unit = {
-    super.onResume()
+    runUi(init)
   }
 
   override def onCreateOptionsMenu(menu: Menu): Boolean = {
