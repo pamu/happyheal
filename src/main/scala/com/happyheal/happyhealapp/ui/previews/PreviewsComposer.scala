@@ -65,17 +65,13 @@ trait PreviewsComposer {
 
 
   def addPreviews(list: List[Preview])(implicit activityContextWrapper: ActivityContextWrapper) = {
-    val layoutManager =
-      landscapeTablet ?
-        new GridLayoutManager(activityContextWrapper.getOriginal, 3) |
-        tablet ?
-          new GridLayoutManager(activityContextWrapper.getOriginal, 2) | new LinearLayoutManager(activityContextWrapper.getOriginal)
-
     (previews <~ vVisible) ~
       (container <~ vGone) ~
       (previews <~
         rvAdapter(new PreviewsAdapter(list)) <~
-        rvLayoutManager(layoutManager) <~
         rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper)))
   }
+
+  def
+  
 }

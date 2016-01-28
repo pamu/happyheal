@@ -15,13 +15,14 @@
     </LinearLayout>
 
 
-    <android.support.v7.widget.RecyclerView
+    <com.happyheal.happyhealapp.commons.ui.AutofitRecyclerView
             android:layout_below="@id/toolbar_container"
             android:id="@+id/image_previews"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:columnWidth="150dp"
             android:layout_weight="1">
-    </android.support.v7.widget.RecyclerView>
+    </com.happyheal.happyhealapp.commons.ui.AutofitRecyclerView>
 
     <FrameLayout android:layout_width="match_parent"
                  android:layout_height="wrap_content"

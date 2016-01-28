@@ -1,16 +1,15 @@
 package com.happyheal.happyhealapp.ui.main
 
-import java.io.{FileOutputStream, File}
+import java.io.File
 import java.util.UUID
 
-import android.app.Activity
-import android.content.Intent
-import android.graphics.Bitmap
+import android.app.{AlertDialog, Activity}
+import android.content.DialogInterface.OnClickListener
+import android.content.{DialogInterface, Intent}
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.{Menu, MenuItem}
 import com.happyheal.happyhealapp.commons.ContextWrapperProvider
 import com.happyheal.happyhealapp.modules.notifications.impl.NotificationServicesComponentImpl
@@ -19,9 +18,6 @@ import com.happyheal.happyhealapp.ui.previews.PreviewsActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import macroid.{Ui, ActivityContextWrapper, ContextWrapper, Contexts}
 import macroid.FullDsl._
-import scala.concurrent.Future
-import scala.tools.util.PathResolver.Environment
-import scala.util.{Success, Failure}
 
 /**
   * Created by pnagarjuna on 20/01/16.
@@ -47,7 +43,8 @@ class MainActivity extends AppCompatActivity
     runUi {
       (fab <~ On.click {
         Ui {
-          ImageCapture.takePhoto
+          val file = ImageCapture.randomFile("jpeg")
+          ImageCapture.takePhoto(file)
         }
       })
     }
@@ -67,35 +64,14 @@ class MainActivity extends AppCompatActivity
 
   override def onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Unit = {
     if (requestCode == ImageCapture.REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-      val extras = data.getExtras
-      val bitmap = extras.get("data").asInstanceOf[Bitmap]
-      import scala.concurrent.ExecutionContext.Implicits.global
-      Future {
-        val external = android.os.Environment.getExternalStorageDirectory
-        val happyhealDir = new File(external, "happyheal")
-        if (! happyhealDir.exists()) happyhealDir.mkdirs()
-        val file = new File(happyhealDir, UUID.randomUUID().toString + ".png")
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(file))
-        Uri.fromFile(file)
-      } onComplete {
-        case Failure(th) =>
-          Log.d(LOG_TAG, "writing to file failed")
-          th.printStackTrace()
-        case Success(value) =>
-          Log.d(LOG_TAG, s"writing to file done: $value")
-          runUi(toast(s"${value.getPath}")(activityContextWrapper) <~ fry)
-          launchPreviews(value)
-      }
+      launchPreviews()
     } else if (requestCode == ImageCapture.REQUEST_OPEN_GALLERY && resultCode == Activity.RESULT_OK) {
       val uri = data.getData
-      runUi(toast(s"${uri.getPath}")(activityContextWrapper) <~ fry)
-      Log.d(LOG_TAG, s"${uri.toString}")
-      launchPreviews(uri)
+      launchPreviews()
     }
   }
 
-  private def launchPreviews(uri: Uri): Unit = {
-    persistenceServices.setFirstPreview(uri.getPath)
+  private def launchPreviews(): Unit = {
     val previewIntent = new Intent(getApplication, classOf[PreviewsActivity])
     startActivity(previewIntent)
   }
@@ -103,16 +79,31 @@ class MainActivity extends AppCompatActivity
 
 object ImageCapture {
 
-  val LINK = "link"
-
   val REQUEST_IMAGE_CAPTURE = 111
 
   val REQUEST_OPEN_GALLERY = 222
 
-  def takePhoto(implicit activityContextWrapper: ActivityContextWrapper): Unit = {
+  val imagesFolderName = "happy_heal"
+
+  def imagesFolder(implicit activityContextWrapper: ActivityContextWrapper) = {
+    val folder = new File(android.os.Environment.getExternalStorageDirectory, ImageCapture.imagesFolderName)
+    if (!folder.exists()) folder.mkdirs()
+    folder
+  }
+
+  def randomFile(extension: String)(implicit activityContextWrapper: ActivityContextWrapper): File = {
+    val file = new File(imagesFolder, UUID.randomUUID().toString + "." + extension.trim)
+    if (! file.exists()) file.createNewFile()
+    file
+  }
+
+  def takePhoto(file: File)(implicit activityContextWrapper: ActivityContextWrapper): Unit = {
     val takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+    val uri = Uri.fromFile(file)
+    takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
     if (takePhotoIntent.resolveActivity(activityContextWrapper.application.getPackageManager) != null) {
-      activityContextWrapper.getOriginal.startActivityForResult(Intent.createChooser(takePhotoIntent, "Capture Prescription"), REQUEST_IMAGE_CAPTURE)
+      activityContextWrapper.getOriginal.startActivityForResult(
+        Intent.createChooser(takePhotoIntent, "Capture Prescription"), REQUEST_IMAGE_CAPTURE)
     } else {
       runUi(toast("No Application installed to Capture Photo.")(activityContextWrapper) <~ fry)
     }
@@ -120,10 +111,11 @@ object ImageCapture {
 
   def openGallery(implicit activityContextWrapper: ActivityContextWrapper): Unit = {
     val openGalleryIntent = new Intent()
-    openGalleryIntent.setType("image/*");
-    openGalleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+    openGalleryIntent.setType("image/*")
+    openGalleryIntent.setAction(Intent.ACTION_GET_CONTENT)
     if (openGalleryIntent.resolveActivity(activityContextWrapper.application.getPackageManager) != null) {
-      activityContextWrapper.getOriginal.startActivityForResult(Intent.createChooser(openGalleryIntent, "Select Prescription"), REQUEST_OPEN_GALLERY)
+      activityContextWrapper.getOriginal.startActivityForResult(
+        Intent.createChooser(openGalleryIntent, "Select Prescription"), REQUEST_OPEN_GALLERY)
     } else runUi(toast("No Application installed to Open Gallery.")(activityContextWrapper) <~ fry)
   }
 

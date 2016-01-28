@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+            android:largeHeap="true"
             android:launchMode="singleTask"
             android:allowBackup="true"
             android:icon="@drawable/ic_launcher"

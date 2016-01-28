@@ -1,7 +1,8 @@
 package com.happyheal.happyhealapp.ui.previews
 
+import java.io.File
+
 import android.content.{Intent, Context}
-import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
@@ -9,14 +10,16 @@ import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view._
 import android.widget.ImageView
 import com.github.amlcurran.showcaseview.ShowcaseView.Builder
-import com.happyheal.happyhealapp.commons.{ToolbarActionItemTarget, ContextWrapperProvider}
+import com.happyheal.happyhealapp.commons.ContextWrapperProvider
 import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
-import com.happyheal.happyhealapp.ui.main.{ImageCapture, MainActivity}
+import com.happyheal.happyhealapp.ui.main.ImageCapture
 import com.happyheal.happyhealapp.ui.otp.OTPActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import com.squareup.picasso.Picasso
-import macroid.{Ui, ContextWrapper, ActivityContextWrapper, Contexts}
+import macroid.{ContextWrapper, ActivityContextWrapper, Contexts}
 import macroid.FullDsl._
+import macroid.Ui
+import com.happyheal.happyhealapp.commons.ToolbarActionItemTarget
 
 /**
   * Created by pnagarjuna on 23/01/16.
@@ -55,9 +58,14 @@ class PreviewsActivity
       .hideOnTouchOutside()
       .build()
 
-    //runUi(empty)
-    runUi(addPreviews(List(Preview(Uri.parse("file://" + persistenceServices.getFirstPreview())))))
 
+    val files = ImageCapture.imagesFolder.listFiles
+    if (files != null) {
+      val previews = files.map { file =>
+        Preview(file)
+      }.toList
+      runUi(addPreviews(previews))
+    }
   }
 
 
@@ -81,18 +89,22 @@ class PreviewsActivity
 
 }
 
-case class Preview(uri: Uri)
+case class Preview(file: File)
 
-class PreviewViewHolder(layout: View) extends ViewHolder(layout) {
+class PreviewViewHolder(layout: View)(implicit activityContextWrapper: ActivityContextWrapper) extends ViewHolder(layout) {
 
   def bind(preview: Preview): Unit = {
     val imageView = layout.findViewById(R.id.image).asInstanceOf[ImageView]
+
     Picasso
-      .`with`(layout.getContext)
-      .load(preview.uri)
+      .`with`(activityContextWrapper.getOriginal)
+      .load(preview.file)
+      .fit()
+      .centerCrop()
       .placeholder(R.drawable.camera_icon)
       .error(R.drawable.camera_icon)
       .into(imageView)
+
   }
 
 }
@@ -102,10 +114,8 @@ class PreviewsAdapter(previewList: List[Preview])(implicit activityContextWrappe
 
   override def getItemCount: Int = previewList.length
 
-  override def onBindViewHolder(vh: PreviewViewHolder, i: Int): Unit = {
-    runUi(toast(s"${previewList(i).uri.getPath}") <~ fry)
-    vh.bind(previewList(i))
-  }
+  override def onBindViewHolder(vh: PreviewViewHolder, i: Int): Unit = vh.bind(previewList(i))
+
 
   override def onCreateViewHolder(viewGroup: ViewGroup, i: Int): PreviewViewHolder = {
     val inflater = activityContextWrapper.application.getSystemService(Context.LAYOUT_INFLATER_SERVICE).asInstanceOf[LayoutInflater]

@@ -26,22 +26,12 @@ trait PersistenceServicesComponentImpl
 
     val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(contextProvider.application)
 
-    val userDataPreferences: SharedPreferences = contextProvider.application.getSharedPreferences(userDataPreferencesKey, Context.MODE_PRIVATE)
+    //val userDataPreferences: SharedPreferences = contextProvider.application.getSharedPreferences(userDataPreferencesKey, Context.MODE_PRIVATE)
 
     override def setLoggedIn(isLoggedIn: Boolean): Unit = sharedPreferences.edit().putBoolean(loggedInKey, isLoggedIn).commit()
     override def setWizardSeen(seen: Boolean): Unit = sharedPreferences.edit().putBoolean(wizardWasSeenKey, seen).commit()
     override def isLoggedIn: Boolean = sharedPreferences.getBoolean(loggedInKey, false)
     override def isWizardSeen: Boolean = sharedPreferences.getBoolean(wizardWasSeenKey, false)
-    override def setCurrentOrderKey(key: String): Unit = sharedPreferences.edit.putString(currentOrderKey, key).commit()
-    override def getCurrentOrderKey(defaultValue: String): String = sharedPreferences.getString(currentOrderKey, defaultValue)
-
-    override def getFirstPreview(): String =
-      userDataPreferences.getString(firstPreview, "")
-
-    override def setFirstPreview(previewLink: String): Unit =
-      userDataPreferences.edit().putString(firstPreview, previewLink).commit()
-
-    override def clearUserPreferences(): Unit = userDataPreferences.edit().clear().commit()
   }
 
 }
