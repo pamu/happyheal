@@ -1,6 +1,5 @@
 import Libraries.android._
 import Libraries.macroid._
-import Libraries.materialProgressWheel._
 import Libraries.playServices._
 import Libraries.apacheCommons._
 import Libraries.json._
@@ -13,6 +12,7 @@ import android.PromptPasswordsSigningConfig
 import Libraries.smartTabLayout._
 import Libraries.showcaseView._
 import Libraries.fileutils._
+import Libraries.circularLoader._
 
 android.Plugin.androidBuild
 
@@ -46,11 +46,10 @@ libraryDependencies ++= Seq(
   aar(androidDesign),
   aar(macroidExtras),
   aar(playServicesBase),
-  aar(materialProgressWheel),
   aar(smartTabLayout),
   aar(showCaseView),
+  aar(circularLoader),
   fileutils,
-  //aar(androidCrop),
   apacheCommonsLang,
   json4s,
   picasso,

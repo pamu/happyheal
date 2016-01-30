@@ -82,10 +82,6 @@ object Libraries {
     lazy val parseBolts = "com.parse.bolts" % "bolts-android" % Versions.parseBolts
   }
 
-  object materialProgressWheel {
-    lazy val materialProgressWheel = "com.pnikosis" % "materialish-progress" % Versions.materialProgressWheel
-  }
-
   object smartTabLayout {
     lazy val smartTabLayout = "com.ogaclejapan.smarttablayout" % "library" % Versions.smartTabLayout
   }
@@ -98,10 +94,9 @@ object Libraries {
     lazy val fileutils = "commons-io" % "commons-io" % Versions.fileutils
   }
 
-  /**
-  object androidCrop {
-    lazy val androidCrop = "com.soundcloud.android" % "android-crop" % Versions.androidCrop
-  } **/
+  object circularLoader {
+    lazy val circularLoader = "com.mikhaellopez" % "circularfillableloaders" % Versions.circularLoader
+  }
 
   object test {
     lazy val specs2 = "org.specs2" %% "specs2-core" % Versions.specs2V % "test"
