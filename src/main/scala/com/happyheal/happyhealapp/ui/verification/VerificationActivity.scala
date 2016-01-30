@@ -1,4 +1,4 @@
-package com.happyheal.happyhealapp.ui.otp
+package com.happyheal.happyhealapp.ui.verification
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -12,19 +12,19 @@ import macroid.FullDsl._
 /**
   * Created by pnagarjuna on 24/01/16.
   */
-class OTPActivity
+class VerificationActivity
   extends AppCompatActivity
     with Contexts[AppCompatActivity]
     with TypedFindView
     with ContextWrapperProvider
     with VerificationListener
-    with OTPComposer {
+    with VerificationComposer {
 
   override lazy implicit val contextProvider: ContextWrapper = activityContextWrapper
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
-    setContentView(TR.layout.otp_layout.id)
+    setContentView(TR.layout.verification_layout.id)
     toolBar map setSupportActionBar
     getSupportActionBar.setHomeButtonEnabled(true)
     getSupportActionBar().setDisplayHomeAsUpEnabled(true)
@@ -34,7 +34,7 @@ class OTPActivity
   }
 
   override def onCreateOptionsMenu(menu: Menu): Boolean = {
-    getMenuInflater.inflate(R.menu.menu_otp, menu)
+    getMenuInflater.inflate(R.menu.menu_verification, menu)
     true
   }
 

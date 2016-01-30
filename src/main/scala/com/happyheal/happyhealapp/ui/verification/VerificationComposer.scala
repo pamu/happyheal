@@ -1,8 +1,11 @@
-package com.happyheal.happyhealapp.ui.otp
+package com.happyheal.happyhealapp.ui.verification
 
+import android.content.Intent
 import android.os.CountDownTimer
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import com.happyheal.happyhealapp.commons.ContextWrapperProvider
+import com.happyheal.happyhealapp.ui.address.AddressActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders
 import com.sinch.verification.{VerificationListener, SinchVerification}
@@ -14,12 +17,13 @@ import com.fortysevendeg.macroid.extras.TextTweaks._
 /**
   * Created by pnagarjuna on 24/01/16.
   */
-trait OTPComposer {
+trait VerificationComposer {
 
   self: TypedFindView
     with ContextWrapperProvider
     with VerificationListener
-    with Contexts[AppCompatActivity] =>
+    with Contexts[AppCompatActivity]
+    with AppCompatActivity =>
 
   lazy val toolBar = Option(findView(TR.toolbar))
   lazy val phoneContainer = Option(findView(TR.phone_container))
@@ -35,25 +39,34 @@ trait OTPComposer {
 
   var count: Int = 0
 
-  val timer = new CountDownTimer(30000, 3000) {
+  val timer = new CountDownTimer(30000, 1000) {
 
     override def onFinish(): Unit =
-      runUi(verificationFailed("Verification failed, try again")(activityContextWrapper))
+      runUi(verificationFailed("Verification failed, try again"))
 
     override def onTick(l: Long): Unit = {
-      count += 10
+      count += 2
       runUi(verifying(Some(count)))
     }
 
   }
 
+  def verified(implicit activityContextWrapper: ActivityContextWrapper) =
+    (phoneContainer <~ vGone) ~
+      (next <~ vGone) ~
+      (loaderContainer <~ vGone) ~
+      (verificationStatusContainer <~ vVisible) ~
+      (tryAgain <~ vGone) ~
+      (verificationStatusMessage <~ tvText("Verified :)"))
+
+
   def verifying(progress: Option[Int] = None)(implicit activityContextWrapper: ActivityContextWrapper) =
     (phoneContainer <~ vGone) ~
       (loaderContainer <~ vVisible) ~
-      (loadingMessage <~ tvText(progress.map { v => s"loading ${v} %" }.getOrElse("loading ..."))) ~
+      (loadingMessage <~ tvText(progress.map { v => s"verifying ${v} %" }.getOrElse("verifying ..."))) ~
       (circularLoader <~ vVisible) ~
       (circularLoader <~ Tweak[CircularFillableLoaders] {
-        loader => loader.setProgress(100 - progress.map(v => v).getOrElse(10))
+        loader => loader.setProgress(100 - progress.map(v => v).getOrElse(0))
       }) ~
       (next <~ vGone)
 
@@ -67,7 +80,7 @@ trait OTPComposer {
       (tryAgain <~ vVisible) ~
       (tryAgain <~ On.click {
         Ui {
-          init(activityContextWrapper)
+          runUi(init)
         }
       })
 
@@ -80,10 +93,12 @@ trait OTPComposer {
         Ui {
           editText.map { et =>
             val text = et.getText.toString
-            runUi(toast(text)(contextProvider) <~ fry)
-            runUi(verifying())
-            timer.start()
-            startVerification("+91" + text.trim)
+            if (!TextUtils.isEmpty(text)) {
+              runUi(toast(text)(contextProvider) <~ fry)
+              runUi(verifying())
+              timer.start()
+              startVerification("+91" + text.trim)
+            }
           }
         }
       })
@@ -110,20 +125,24 @@ trait OTPComposer {
 
   override def onVerified(): Unit = {
     runUi(toast("verified")(contextProvider) <~ fry)
-    runUi(verificationFailed("Initiation Failed")(activityContextWrapper))
-    count = 0
+    timer.cancel()
+    runUi(verified)
+    val addressIntent = new Intent(activityContextWrapper.getOriginal, classOf[AddressActivity])
+    finish()
+    startActivity(addressIntent)
   }
 
   override def onInitiationFailed(e: Exception): Unit = {
     runUi(toast("initiation failed")(contextProvider) <~ fry)
-    runUi(verificationFailed("Verification failed, Check your internet.")(activityContextWrapper))
+    runUi(verificationFailed("Verification failed, Check your internet."))
     count = 0
     timer.cancel()
   }
 
   override def onVerificationFailed(e: Exception): Unit = {
     runUi(toast("verification failed")(contextProvider) <~ fry)
-    runUi(verificationFailed("Verification failed, Try again")(activityContextWrapper))
+    runUi(verificationFailed("Verification failed, Try again"))
+    count = 0
     timer.cancel()
   }
 

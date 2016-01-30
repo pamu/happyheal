@@ -219,7 +219,7 @@
 # view AndroidManifest.xml #generated:17
 -keep class com.happyheal.happyhealapp.ui.wizard.WizardActivity { <init>(...); }
 
-# view res/layout/otp_layout.xml #generated:93
+# view res/layout/verification_layout.xmlayout.xml #generated:93
 -keep class com.mikhaellopez.circularfillableloaders.CircularFillableLoaders { <init>(...); }
 
 # Copyright (C) 2015 The Android Open Source Project

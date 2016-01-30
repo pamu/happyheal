@@ -1,7 +1,7 @@
 package com.happyheal.happyhealapp.ui.previews
 
 import android.content.Intent
-import com.happyheal.happyhealapp.ui.otp.OTPActivity
+import com.happyheal.happyhealapp.ui.verification.VerificationActivity
 import com.happyheal.happyhealapp.{TR, TypedFindView}
 import macroid.FullDsl._
 import com.fortysevendeg.macroid.extras.ViewTweaks._
@@ -41,7 +41,7 @@ trait PreviewsComposer {
     (previews <~ vVisible) ~
       (next <~ On.click {
         Ui {
-          val otpIntent = new Intent(activityContextWrapper.getOriginal, classOf[OTPActivity])
+          val otpIntent = new Intent(activityContextWrapper.getOriginal, classOf[VerificationActivity])
           activityContextWrapper.getOriginal.startActivity(otpIntent)
         }
       }) ~
