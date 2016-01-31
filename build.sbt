@@ -4,7 +4,6 @@ import Libraries.playServices._
 import Libraries.apacheCommons._
 import Libraries.json._
 import Libraries.date._
-import Libraries.parse._
 import Libraries.graphics._
 import Libraries.test._
 import android.Keys._
@@ -13,6 +12,7 @@ import Libraries.smartTabLayout._
 import Libraries.showcaseView._
 import Libraries.fileutils._
 import Libraries.circularLoader._
+import Libraries.firebase._
 
 android.Plugin.androidBuild
 
@@ -54,8 +54,6 @@ libraryDependencies ++= Seq(
   json4s,
   picasso,
   prettytime,
-  parse,
-  parseBolts,
   specs2,
   mockito,
   androidTest,
@@ -79,7 +77,8 @@ proguardOptions in Android ++= Settings.proguardCommons
 proguardCache in Android := Seq.empty
 
 packagingOptions in Android := PackagingOptions(
-  Seq( "META-INF/LICENSE",
+  Seq("META-INF/LICENSE",
     "META-INF/LICENSE.txt",
     "META-INF/NOTICE",
-    "META-INF/NOTICE.txt"))
+    "META-INF/NOTICE.txt",
+    "META-INF/LICENSE-FIREBASE.txt"))

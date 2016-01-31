@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view._
 import android.widget.ImageView
-import com.github.amlcurran.showcaseview.ShowcaseView.Builder
+//import com.github.amlcurran.showcaseview.ShowcaseView.Builder
 import com.happyheal.happyhealapp.commons.ContextWrapperProvider
 import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
 import com.happyheal.happyhealapp.ui.main.ImageCapture
@@ -17,7 +17,7 @@ import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import com.squareup.picasso.Picasso
 import macroid._
 import macroid.FullDsl._
-import com.happyheal.happyhealapp.commons.ToolbarActionItemTarget
+//import com.happyheal.happyhealapp.commons.ToolbarActionItemTarget
 
 /**
   * Created by pnagarjuna on 23/01/16.

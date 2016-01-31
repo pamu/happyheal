@@ -77,11 +77,6 @@ object Libraries {
     lazy val prettytime = "org.ocpsoft.prettytime" % "prettytime" % Versions.prettytimeV
   }
 
-  object parse {
-    lazy val parse = "com.parse" % "parse-android" % Versions.parse
-    lazy val parseBolts = "com.parse.bolts" % "bolts-android" % Versions.parseBolts
-  }
-
   object smartTabLayout {
     lazy val smartTabLayout = "com.ogaclejapan.smarttablayout" % "library" % Versions.smartTabLayout
   }
@@ -96,6 +91,10 @@ object Libraries {
 
   object circularLoader {
     lazy val circularLoader = "com.mikhaellopez" % "circularfillableloaders" % Versions.circularLoader
+  }
+
+  object firebase {
+    lazy val firebase = "com.firebase" % "firebase-client-android" % Versions.firebase
   }
 
   object test {

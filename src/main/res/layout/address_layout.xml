@@ -14,4 +14,19 @@
                 layout="@layout/toolbar"/>
     </LinearLayout>
 
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:layout_weight="1"></LinearLayout>
+
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="bottom"
+              android:gravity="center"
+              android:textSize="24dp"
+              android:background="@color/colorPrimary"
+              android:textColor="@color/white"
+              android:text="Next"
+              android:padding="8dp"
+              android:id="@+id/next"/>
 </LinearLayout>

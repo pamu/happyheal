@@ -124,7 +124,7 @@
 # view sw600dp-v13/res/layout-sw600dp-v13/design_layout_snackbar.xml #generated:18
 -keep class android.support.design.widget.Snackbar$SnackbarLayout { <init>(...); }
 
-# view res/layout/wizard_layout.xml #generated:8
+# view res/layout/wizard_layout.xml #generated:9
 -keep class android.support.v4.view.ViewPager { <init>(...); }
 
 # view res/layout/abc_alert_dialog_material.xml #generated:75
@@ -189,10 +189,10 @@
 # view res/layout/abc_screen_simple_overlay_action_mode.xml #generated:32
 -keep class android.support.v7.widget.ViewStubCompat { <init>(...); }
 
-# view AndroidManifest.xml #generated:39
+# view AndroidManifest.xml #generated:42
 -keep class android.test.InstrumentationTestRunner { <init>(...); }
 
-# view AndroidManifest.xml #generated:30
+# view AndroidManifest.xml #generated:33
 -keep class com.happyheal.happyhealapp.SampleActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:14
@@ -201,25 +201,28 @@
 # view res/layout/previews_layout.xml #generated:19
 -keep class com.happyheal.happyhealapp.commons.ui.AutofitRecyclerView { <init>(...); }
 
-# view AndroidManifest.xml #generated:34
+# view AndroidManifest.xml #generated:37
 -keep class com.happyheal.happyhealapp.receiver.BootReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:32
+# view AndroidManifest.xml #generated:35
 -keep class com.happyheal.happyhealapp.service.SyncService { <init>(...); }
+
+# view AndroidManifest.xml #generated:30
+-keep class com.happyheal.happyhealapp.ui.address.AddressActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:15
 -keep class com.happyheal.happyhealapp.ui.main.MainActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:27
--keep class com.happyheal.happyhealapp.ui.otp.OTPActivity { <init>(...); }
-
 # view AndroidManifest.xml #generated:24
 -keep class com.happyheal.happyhealapp.ui.previews.PreviewsActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:27
+-keep class com.happyheal.happyhealapp.ui.verification.VerificationActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:17
 -keep class com.happyheal.happyhealapp.ui.wizard.WizardActivity { <init>(...); }
 
-# view res/layout/verification_layout.xmlayout.xml #generated:93
+# view res/layout/verification_layout.xml #generated:96
 -keep class com.mikhaellopez.circularfillableloaders.CircularFillableLoaders { <init>(...); }
 
 # Copyright (C) 2015 The Android Open Source Project

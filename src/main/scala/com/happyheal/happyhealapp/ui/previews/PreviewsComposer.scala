@@ -39,15 +39,25 @@ trait PreviewsComposer {
 
   def addPreviews(list: List[Preview])(implicit activityContextWrapper: ActivityContextWrapper) = {
     (previews <~ vVisible) ~
-      (next <~ On.click {
-        Ui {
-          val otpIntent = new Intent(activityContextWrapper.getOriginal, classOf[VerificationActivity])
-          activityContextWrapper.getOriginal.startActivity(otpIntent)
-        }
-      }) ~
       (previews <~
         rvAdapter(new PreviewsAdapter(list)) <~
-        rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper)))
+        rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper))) ~
+      (next <~ On.click {
+        Ui {
+          previews.foreach {
+            rv =>
+              if (rv.getAdapter != null) {
+                if (rv.getAdapter.getItemCount > 0) {
+                  val otpIntent = new Intent(activityContextWrapper.getOriginal, classOf[VerificationActivity])
+                  activityContextWrapper.getOriginal.startActivity(otpIntent)
+                } else {
+                  runUi(toast("Add at least one Prescription to Go Ahead")(activityContextWrapper) <~ fry)
+                }
+              }
+          }
+        }
+      })
+
   }
 
 }

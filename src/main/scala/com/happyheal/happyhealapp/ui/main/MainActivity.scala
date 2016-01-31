@@ -19,6 +19,12 @@ import com.happyheal.happyhealapp.ui.previews.PreviewsActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import macroid.{Ui, ActivityContextWrapper, ContextWrapper, Contexts}
 import macroid.FullDsl._
+import org.apache.commons.io.FileUtils
+
+import scala.concurrent.Future
+import scala.util.{Failure, Success}
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
   * Created by pnagarjuna on 20/01/16.
@@ -44,8 +50,9 @@ class MainActivity extends AppCompatActivity
     runUi {
       (fab <~ On.click {
         Ui {
-          val file = ImageCapture.randomFile("jpeg")
-          ImageCapture.takePhoto(file)
+          //val file = ImageCapture.randomFile("jpeg")
+          //ImageCapture.takePhoto(file)
+          ImageCapture.showDialog
         }
       })
     }
@@ -68,8 +75,14 @@ class MainActivity extends AppCompatActivity
       launchPreviews()
     } else if (requestCode == ImageCapture.REQUEST_OPEN_GALLERY && resultCode == Activity.RESULT_OK) {
       val uri = data.getData
-
-      launchPreviews()
+      Future {
+        FileUtils.copyFile(new File(uri.getPath), ImageCapture.randomFile("jpeg"))
+      } onComplete {
+        case Success(sValue) =>
+          launchPreviews()
+        case Failure(fValue) =>
+          launchPreviews()
+      }
     }
   }
 
@@ -94,8 +107,7 @@ object ImageCapture {
   }
 
   def randomFile(extension: String)(implicit activityContextWrapper: ActivityContextWrapper): File = {
-    val file = new File(imagesFolder, UUID.randomUUID().toString + "." + extension.trim)
-    //if (! file.exists()) file.createNewFile()
+    val file = new File(imagesFolder, "happy_heal-" + UUID.randomUUID().toString + "." + extension.trim)
     file
   }
 
@@ -138,6 +150,7 @@ object ImageCapture {
           case 1 =>
             openGallery
           case 2 =>
+            runUi(toast("Nothing, to do")(activityContextWrapper) <~ fry)
         }
       }
     })

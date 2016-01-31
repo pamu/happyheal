@@ -15,13 +15,19 @@ class AddressActivity
   with Contexts[AppCompatActivity]
   with ContextWrapperProvider
   with TypedFindView
-  with PersistenceServicesComponentImpl {
+  with PersistenceServicesComponentImpl
+    with AddressComposer {
 
   override lazy implicit val contextProvider: ContextWrapper = activityContextWrapper
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
     setContentView(TR.layout.address_layout.id)
+    toolbar map setSupportActionBar
+    getSupportActionBar.setHomeButtonEnabled(true)
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true)
+    getSupportActionBar().setDisplayShowHomeEnabled(true)
+
   }
 
 }

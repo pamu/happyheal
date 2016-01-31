@@ -13,12 +13,9 @@ trait PersistenceServicesComponentImpl
 
   self: ContextWrapperProvider =>
 
-  val loggedInKey = "loggedIn_key"
   val wizardWasSeenKey = "wizard_was_seen_key"
-  val currentOrderKey = "current_order_key"
+  val userPhone = "user_phone"
 
-  val userDataPreferencesKey = "user_data_preferences"
-  val firstPreview = "first_preview"
 
   override lazy val persistenceServices = new PersistenceServicesImpl
 
@@ -26,12 +23,13 @@ trait PersistenceServicesComponentImpl
 
     val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(contextProvider.application)
 
-    //val userDataPreferences: SharedPreferences = contextProvider.application.getSharedPreferences(userDataPreferencesKey, Context.MODE_PRIVATE)
-
-    override def setLoggedIn(isLoggedIn: Boolean): Unit = sharedPreferences.edit().putBoolean(loggedInKey, isLoggedIn).commit()
     override def setWizardSeen(seen: Boolean): Unit = sharedPreferences.edit().putBoolean(wizardWasSeenKey, seen).commit()
-    override def isLoggedIn: Boolean = sharedPreferences.getBoolean(loggedInKey, false)
+
     override def isWizardSeen: Boolean = sharedPreferences.getBoolean(wizardWasSeenKey, false)
+
+    override def setPhone(phone: Long): Unit = sharedPreferences.edit().putLong(userPhone, phone).commit()
+
+    override def getPhone(defaultValue: Long): Long = sharedPreferences.getLong(userPhone, defaultValue)
   }
 
 }
