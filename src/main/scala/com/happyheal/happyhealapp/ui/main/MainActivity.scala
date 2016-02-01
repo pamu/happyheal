@@ -1,6 +1,6 @@
 package com.happyheal.happyhealapp.ui.main
 
-import java.io.File
+import java.io.{FileOutputStream, FileInputStream, File}
 import java.util.UUID
 
 import android.app.{AlertDialog, Activity}
@@ -76,7 +76,7 @@ class MainActivity extends AppCompatActivity
     } else if (requestCode == ImageCapture.REQUEST_OPEN_GALLERY && resultCode == Activity.RESULT_OK) {
       val uri = data.getData
       Future {
-        FileUtils.copyFile(new File(uri.getPath), ImageCapture.randomFile("jpeg"))
+        ImageCapture.copyFile(new File(uri.getPath), ImageCapture.randomFile("jpeg"))
       } onComplete {
         case Success(sValue) =>
           launchPreviews()
@@ -109,6 +109,21 @@ object ImageCapture {
   def randomFile(extension: String)(implicit activityContextWrapper: ActivityContextWrapper): File = {
     val file = new File(imagesFolder, "happy_heal-" + UUID.randomUUID().toString + "." + extension.trim)
     file
+  }
+
+  def copyFile(srcFile: File, destFile: File): Unit = {
+    val in = new FileInputStream(srcFile)
+    val out = new FileOutputStream(destFile)
+    val buf = Array.ofDim[Byte](1024)
+    var len: Int = 0
+    while ( {
+      len = in.read(buf)
+      len > 0
+    }) {
+      out.write(buf, 0, len);
+    }
+    in.close()
+    out.close()
   }
 
   def takePhoto(file: File)(implicit activityContextWrapper: ActivityContextWrapper): Unit = {
