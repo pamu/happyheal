@@ -1,20 +1,28 @@
 package com.happyheal.happyhealapp.ui.previews
 
+import java.io.{File, FilenameFilter}
+
 import android.content.Intent
+import android.support.v7.app.AppCompatActivity
+import com.happyheal.happyhealapp.ui.main.ImageCapture
 import com.happyheal.happyhealapp.ui.verification.VerificationActivity
 import com.happyheal.happyhealapp.{TR, TypedFindView}
 import macroid.FullDsl._
 import com.fortysevendeg.macroid.extras.ViewTweaks._
 import com.fortysevendeg.macroid.extras.TextTweaks._
-import macroid.{ActivityContextWrapper, Ui}
+import macroid.{Contexts, ActivityContextWrapper, Ui}
 import com.fortysevendeg.macroid.extras.RecyclerViewTweaks._
+import org.apache.commons.io.FilenameUtils
+
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
   * Created by pnagarjuna on 24/01/16.
   */
 trait PreviewsComposer {
 
-  self: TypedFindView =>
+  self: TypedFindView with Contexts[AppCompatActivity] =>
 
   lazy val toolBar = Option(findView(TR.toolbar))
   lazy val previews = Option(findView(TR.image_previews))
@@ -23,6 +31,28 @@ trait PreviewsComposer {
   lazy val messageCenter = Option(findView(TR.message_center))
   lazy val message = Option(findView(TR.message))
 
+  def reload: Unit = {
+
+    val files = ImageCapture.imagesFolder.listFiles(new FilenameFilter {
+      override def accept(file: File, s: String): Boolean = FilenameUtils.getExtension(s) == "jpeg"
+    })
+
+    if (files != null) {
+      Future {
+        files.map { file =>
+          Preview(file)
+        }.toList
+      } mapUi { previews =>
+        addPreviews(previews)
+      } recoverUi {
+        case ex =>
+          ex.printStackTrace()
+          empty
+      }
+    } else {
+      runUi(empty)
+    }
+  }
 
   def empty(implicit activityContextWrapper: ActivityContextWrapper) =
     (next <~ vGone) ~
@@ -37,11 +67,11 @@ trait PreviewsComposer {
       })
 
 
-  def addPreviews(list: List[Preview])(implicit activityContextWrapper: ActivityContextWrapper) = {
-    (previews <~ vVisible) ~
-      (previews <~
-        rvAdapter(new PreviewsAdapter(list)) <~
-        rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper))) ~
+  def addPreviews(list: List[Preview])(implicit activityContextWrapper: ActivityContextWrapper) =
+    (next <~ vVisible) ~
+      (previews <~ vVisible) ~
+      (previews <~ rvAdapter(new PreviewsAdapter(list)(reload))) ~
+      //(previews <~ rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper))) ~
       (next <~ On.click {
         Ui {
           previews.foreach {
@@ -57,7 +87,5 @@ trait PreviewsComposer {
           }
         }
       })
-
-  }
 
 }

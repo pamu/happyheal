@@ -8,6 +8,8 @@ trait PersistenceServices {
   def getPhone(defaultValue: Long): Long
   def isWizardSeen: Boolean
   def setWizardSeen(seen: Boolean): Unit
+  def isDemoDone(): Boolean
+  def setDemoDone(done: Boolean): Unit
 }
 
 trait PersistenceServicesComponent {

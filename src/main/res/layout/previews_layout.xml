@@ -21,7 +21,7 @@
             android:id="@+id/image_previews"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnWidth="150dp"
+            android:columnWidth="160dp"
             android:layout_weight="1">
     </com.happyheal.happyhealapp.commons.ui.AutofitRecyclerView>
 
@@ -54,7 +54,6 @@
                 android:id="@+id/add_preview"/>
 
     </LinearLayout>
-
 
     <TextView android:layout_width="match_parent"
               android:layout_height="wrap_content"

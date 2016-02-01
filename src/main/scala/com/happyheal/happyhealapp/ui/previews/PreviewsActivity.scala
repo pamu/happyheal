@@ -10,7 +10,8 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view._
 import android.widget.ImageView
-import org.apache.commons.io.FilenameUtils
+import com.happyheal.happyhealapp.commons.utils.Utils
+import org.apache.commons.io.{FileUtils, FilenameUtils}
 
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
@@ -61,30 +62,9 @@ class PreviewsActivity
     //      .hideOnTouchOutside()
     //      .build()
 
-
-    val files = ImageCapture.imagesFolder.listFiles(new FilenameFilter {
-      override def accept(file: File, s: String): Boolean = FilenameUtils.getExtension(s) == "jpeg"
-    })
-
-    if (files != null) {
-      Future {
-        files.map { file =>
-          Preview(file)
-        }.toList
-      } mapUi { previews =>
-        addPreviews(previews)
-      } recoverUi {
-        case ex =>
-          ex.printStackTrace()
-          empty
-      }
-    } else {
-      runUi(empty)
-    }
-
+    reload
 
   }
-
 
   override def onResume(): Unit = {
     super.onResume()
@@ -106,32 +86,49 @@ class PreviewsActivity
 
   override def onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Unit = {
     if (requestCode == ImageCapture.REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-      refreshPreviews()
+      reload
     } else if (requestCode == ImageCapture.REQUEST_OPEN_GALLERY && resultCode == Activity.RESULT_OK) {
       val uri = data.getData
+      runUi(toast("Please wait ...")(activityContextWrapper) <~ fry)
       Future {
-        ImageCapture.copyFile(new File(uri.getPath), ImageCapture.randomFile("jpeg"))
-      } onComplete {
-        case Success(sValue) =>
-          refreshPreviews()
-        case Failure(fValue) =>
-          refreshPreviews()
+        ImageCapture.copyFile(new File(Utils.getRealPathFromURI(getApplication, uri)), ImageCapture.randomFile("jpeg"))
+      } mapUi { x =>
+        Ui {
+          reload
+        }
       }
     }
-  }
-
-  private def refreshPreviews(): Unit = {
-
   }
 
 }
 
 case class Preview(file: File)
 
-class PreviewViewHolder(layout: View)(implicit activityContextWrapper: ActivityContextWrapper) extends ViewHolder(layout) {
+class PreviewViewHolder(layout: View)
+                       (clickListener: => Unit)
+                       (implicit activityContextWrapper: ActivityContextWrapper)
+  extends ViewHolder(layout) {
 
   def bind(preview: Preview): Unit = {
     val imageView = layout.findViewById(R.id.image).asInstanceOf[ImageView]
+    val cross = layout.findViewById(R.id.cross).asInstanceOf[ImageView]
+
+    runUi {
+      cross <~ On.click {
+        Ui {
+          runUi(toast("Please wait ... ")(activityContextWrapper) <~ fry)
+          Future {
+            FileUtils.forceDelete(preview.file)
+          } mapUi { value =>
+            clickListener
+            toast("Removed") <~ fry
+          } recoverUi {
+            case ex =>
+              toast("Unable to remove") <~ fry
+          }
+        }
+      }
+    }
 
     Picasso
       .`with`(activityContextWrapper.getOriginal)
@@ -146,7 +143,9 @@ class PreviewViewHolder(layout: View)(implicit activityContextWrapper: ActivityC
 
 }
 
-class PreviewsAdapter(previewList: List[Preview])(implicit activityContextWrapper: ActivityContextWrapper)
+class PreviewsAdapter(previewList: List[Preview])
+                     (clickListener: => Unit)
+                     (implicit activityContextWrapper: ActivityContextWrapper)
   extends RecyclerView.Adapter[PreviewViewHolder] {
 
   override def getItemCount: Int = previewList.length
@@ -157,7 +156,7 @@ class PreviewsAdapter(previewList: List[Preview])(implicit activityContextWrappe
   override def onCreateViewHolder(viewGroup: ViewGroup, i: Int): PreviewViewHolder = {
     val inflater = activityContextWrapper.application.getSystemService(Context.LAYOUT_INFLATER_SERVICE).asInstanceOf[LayoutInflater]
     val view = inflater.inflate(R.layout.preview, viewGroup, false)
-    new PreviewViewHolder(view)
+    new PreviewViewHolder(view)(clickListener)
   }
 
 }

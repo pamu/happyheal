@@ -15,6 +15,7 @@ trait PersistenceServicesComponentImpl
 
   val wizardWasSeenKey = "wizard_was_seen_key"
   val userPhone = "user_phone"
+  val demoDone = "demo_done"
 
 
   override lazy val persistenceServices = new PersistenceServicesImpl
@@ -30,6 +31,10 @@ trait PersistenceServicesComponentImpl
     override def setPhone(phone: Long): Unit = sharedPreferences.edit().putLong(userPhone, phone).commit()
 
     override def getPhone(defaultValue: Long): Long = sharedPreferences.getLong(userPhone, defaultValue)
+
+    override def isDemoDone(): Boolean = sharedPreferences.getBoolean(demoDone, false)
+
+    override def setDemoDone(done: Boolean): Unit = sharedPreferences.edit().putBoolean(demoDone, done).commit()
   }
 
 }

@@ -13,13 +13,13 @@ import android.support.v7.app.AppCompatActivity
 import android.view.{Menu, MenuItem}
 import android.widget.ArrayAdapter
 import com.happyheal.happyhealapp.commons.ContextWrapperProvider
+import com.happyheal.happyhealapp.commons.utils.Utils
 import com.happyheal.happyhealapp.modules.notifications.impl.NotificationServicesComponentImpl
 import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
 import com.happyheal.happyhealapp.ui.previews.PreviewsActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import macroid.{Ui, ActivityContextWrapper, ContextWrapper, Contexts}
 import macroid.FullDsl._
-import org.apache.commons.io.FileUtils
 
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
@@ -38,8 +38,6 @@ class MainActivity extends AppCompatActivity
   with NotificationServicesComponentImpl {
 
   override implicit lazy val contextProvider: ContextWrapper = activityContextWrapper
-
-  val LOG_TAG = classOf[MainActivity].getSimpleName
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -75,12 +73,15 @@ class MainActivity extends AppCompatActivity
       launchPreviews()
     } else if (requestCode == ImageCapture.REQUEST_OPEN_GALLERY && resultCode == Activity.RESULT_OK) {
       val uri = data.getData
+      runUi(toast("Please wait ...")(activityContextWrapper) <~ fry)
       Future {
-        ImageCapture.copyFile(new File(uri.getPath), ImageCapture.randomFile("jpeg"))
+        ImageCapture.copyFile(new File(Utils.getRealPathFromURI(getApplicationContext, uri)), ImageCapture.randomFile("jpeg"))
       } onComplete {
         case Success(sValue) =>
+          runUi(toast("copying successful")(activityContextWrapper) <~ fry)
           launchPreviews()
         case Failure(fValue) =>
+          runUi(toast("copying failed, reason: " + fValue.getMessage + " cause: " + fValue.getCause)(activityContextWrapper) <~ fry)
           launchPreviews()
       }
     }
