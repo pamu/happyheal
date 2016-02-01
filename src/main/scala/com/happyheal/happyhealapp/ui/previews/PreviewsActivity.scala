@@ -2,13 +2,19 @@ package com.happyheal.happyhealapp.ui.previews
 
 import java.io.{FilenameFilter, File}
 
-import android.content.Context
+import android.app.Activity
+import android.content.{Intent, Context}
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view._
 import android.widget.ImageView
+import org.apache.commons.io.FilenameUtils
+
+import scala.concurrent.Future
+import scala.util.{Failure, Success}
+
 //import com.github.amlcurran.showcaseview.ShowcaseView.Builder
 import com.happyheal.happyhealapp.commons.ContextWrapperProvider
 import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
@@ -17,7 +23,11 @@ import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import com.squareup.picasso.Picasso
 import macroid._
 import macroid.FullDsl._
+
 //import com.happyheal.happyhealapp.commons.ToolbarActionItemTarget
+
+import scala.concurrent.ExecutionContext.Implicits.global
+
 
 /**
   * Created by pnagarjuna on 23/01/16.
@@ -43,24 +53,34 @@ class PreviewsActivity
 
     //runUi(empty)
 
-//    new Builder(this)
-//      .withMaterialShowcase()
-//      .setTarget(new ToolbarActionItemTarget(toolBar.get, R.id.plus))
-//      .setContentText("Add Prescription pictures as many as possible for more clarity using Plus Button")
-//      .setStyle(R.style.CustomShowcaseTheme2)
-//      .hideOnTouchOutside()
-//      .build()
+    //    new Builder(this)
+    //      .withMaterialShowcase()
+    //      .setTarget(new ToolbarActionItemTarget(toolBar.get, R.id.plus))
+    //      .setContentText("Add Prescription pictures as many as possible for more clarity using Plus Button")
+    //      .setStyle(R.style.CustomShowcaseTheme2)
+    //      .hideOnTouchOutside()
+    //      .build()
 
 
-        val files = ImageCapture.imagesFolder.listFiles(new FilenameFilter {
-          override def accept(file: File, s: String): Boolean = true
-        })
-        if (files != null) {
-          val previews = files.map { file =>
-            Preview(file)
-          }.toList
-          runUi(addPreviews(previews))
-        }
+    val files = ImageCapture.imagesFolder.listFiles(new FilenameFilter {
+      override def accept(file: File, s: String): Boolean = FilenameUtils.getExtension(s) == "jpeg"
+    })
+
+    if (files != null) {
+      Future {
+        files.map { file =>
+          Preview(file)
+        }.toList
+      } mapUi { previews =>
+        addPreviews(previews)
+      } recoverUi {
+        case ex =>
+          ex.printStackTrace()
+          empty
+      }
+    } else {
+      runUi(empty)
+    }
 
 
   }
@@ -78,11 +98,31 @@ class PreviewsActivity
   override def onOptionsItemSelected(item: MenuItem): Boolean = {
     item.getItemId match {
       case R.id.plus =>
+        ImageCapture.showDialog(activityContextWrapper)
         return true
       case _ => return super.onOptionsItemSelected(item)
     }
   }
 
+  override def onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Unit = {
+    if (requestCode == ImageCapture.REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+      refreshPreviews()
+    } else if (requestCode == ImageCapture.REQUEST_OPEN_GALLERY && resultCode == Activity.RESULT_OK) {
+      val uri = data.getData
+      Future {
+        ImageCapture.copyFile(new File(uri.getPath), ImageCapture.randomFile("jpeg"))
+      } onComplete {
+        case Success(sValue) =>
+          refreshPreviews()
+        case Failure(fValue) =>
+          refreshPreviews()
+      }
+    }
+  }
+
+  private def refreshPreviews(): Unit = {
+
+  }
 
 }
 

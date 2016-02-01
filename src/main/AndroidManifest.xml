@@ -63,6 +63,10 @@
                     android:value=".ui.previews.PreviewsActivity"/>
         </activity>
 
+        <activity android:name=".ui.dataupload.DataUploadActivity" android:label="Place Order"/>
+
+        <activity android:name=".ui.orders.OrdersActivity" android:label="Manage Orders"/>
+
         <activity android:name=".SampleActivity" android:label="Sample"/>
 
         <service android:name=".service.SyncService"></service>
