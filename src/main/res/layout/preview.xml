@@ -29,6 +29,7 @@
                     android:src="@drawable/camera_icon"/>
 
             <ImageView
+                    android:background="@drawable/circular_bg"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:padding="4dp"

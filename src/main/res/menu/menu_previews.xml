@@ -6,7 +6,7 @@
             android:id="@+id/plus"
             android:title="plus"
             android:orderInCategory="100"
-            android:icon="@drawable/plus"
+            android:icon="@drawable/ic_plus_white_48dp"
             app:showAsAction="always" />
 
     <item
