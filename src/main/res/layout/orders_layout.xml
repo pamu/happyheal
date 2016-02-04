@@ -4,4 +4,25 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar"/>
+    </LinearLayout>
+
+
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/orders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+
+    </FrameLayout>
+
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.os.CountDownTimer
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import com.happyheal.happyhealapp.commons.ContextWrapperProvider
+import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
 import com.happyheal.happyhealapp.ui.address.AddressActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders
@@ -23,7 +24,8 @@ trait VerificationComposer {
     with ContextWrapperProvider
     with VerificationListener
     with Contexts[AppCompatActivity]
-    with AppCompatActivity =>
+    with AppCompatActivity
+    with PersistenceServicesComponentImpl =>
 
   lazy val toolBar = Option(findView(TR.toolbar))
   lazy val phoneContainer = Option(findView(TR.phone_container))
@@ -37,8 +39,8 @@ trait VerificationComposer {
   lazy val verificationStatusMessage = Option(findView(TR.verification_status_message))
   lazy val tryAgain = Option(findView(TR.try_again))
 
+  var phoneOption: Option[String] = None
   var count: Int = 0
-
   val timer = new CountDownTimer(30000, 1000) {
 
     override def onFinish(): Unit =
@@ -115,6 +117,7 @@ trait VerificationComposer {
       self
     )
 
+    phoneOption = Some(phone)
     verification.initiate()
     timer.start()
   }
@@ -127,6 +130,7 @@ trait VerificationComposer {
     runUi(toast("verified")(contextProvider) <~ fry)
     timer.cancel()
     runUi(verified)
+    phoneOption.map(persistenceServices.setPhone(_))
     val addressIntent = new Intent(activityContextWrapper.getOriginal, classOf[AddressActivity])
     finish()
     startActivity(addressIntent)

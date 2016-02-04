@@ -28,9 +28,9 @@ trait PersistenceServicesComponentImpl
 
     override def isWizardSeen: Boolean = sharedPreferences.getBoolean(wizardWasSeenKey, false)
 
-    override def setPhone(phone: Long): Unit = sharedPreferences.edit().putLong(userPhone, phone).commit()
+    override def setPhone(phone: String): Unit = sharedPreferences.edit().putString(userPhone, phone).commit()
 
-    override def getPhone(defaultValue: Long): Long = sharedPreferences.getLong(userPhone, defaultValue)
+    override def getPhone(defaultValue: String): String = sharedPreferences.getString(userPhone, defaultValue)
 
     override def isDemoDone(): Boolean = sharedPreferences.getBoolean(demoDone, false)
 

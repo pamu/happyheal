@@ -49,6 +49,7 @@ libraryDependencies ++= Seq(
   aar(smartTabLayout),
   aar(showCaseView),
   aar(circularLoader),
+  firebase,
   fileutils,
   apacheCommonsLang,
   json4s,

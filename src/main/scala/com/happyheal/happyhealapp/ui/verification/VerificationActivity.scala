@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.{MenuItem, Menu}
 import com.happyheal.happyhealapp.commons.ContextWrapperProvider
+import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import com.sinch.verification.VerificationListener
 import macroid.{ContextWrapper, Contexts}
@@ -18,6 +19,7 @@ class VerificationActivity
     with TypedFindView
     with ContextWrapperProvider
     with VerificationListener
+    with PersistenceServicesComponentImpl
     with VerificationComposer {
 
   override lazy implicit val contextProvider: ContextWrapper = activityContextWrapper

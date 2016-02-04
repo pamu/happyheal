@@ -162,7 +162,7 @@
 # view res/layout/abc_alert_dialog_button_bar_material.xml #generated:18
 -keep class android.support.v7.widget.ButtonBarLayout { <init>(...); }
 
-# view res/layout/preview.xml #generated:7
+# view res/layout/preview.xml #generated:8
 -keep class android.support.v7.widget.CardView { <init>(...); }
 
 # view res/layout/abc_screen_content_include.xml #generated:19
@@ -178,6 +178,9 @@
 # view res/layout/abc_screen_simple.xml #generated:17
 -keep class android.support.v7.widget.FitWindowsLinearLayout { <init>(...); }
 
+# view res/layout/orders_layout.xml #generated:20
+-keep class android.support.v7.widget.RecyclerView { <init>(...); }
+
 # view res/layout/abc_search_view.xml #generated:78
 -keep class android.support.v7.widget.SearchView$SearchAutoComplete { <init>(...); }
 
@@ -189,37 +192,43 @@
 # view res/layout/abc_screen_simple_overlay_action_mode.xml #generated:32
 -keep class android.support.v7.widget.ViewStubCompat { <init>(...); }
 
-# view AndroidManifest.xml #generated:42
+# view AndroidManifest.xml #generated:45
 -keep class android.test.InstrumentationTestRunner { <init>(...); }
 
-# view AndroidManifest.xml #generated:33
+# view AndroidManifest.xml #generated:36
 -keep class com.happyheal.happyhealapp.SampleActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:14
+# view AndroidManifest.xml #generated:15
 -keep class com.happyheal.happyhealapp.app.HappyHealApp { <init>(...); }
 
 # view res/layout/previews_layout.xml #generated:19
 -keep class com.happyheal.happyhealapp.commons.ui.AutofitRecyclerView { <init>(...); }
 
-# view AndroidManifest.xml #generated:37
+# view AndroidManifest.xml #generated:40
 -keep class com.happyheal.happyhealapp.receiver.BootReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:35
+# view AndroidManifest.xml #generated:38
 -keep class com.happyheal.happyhealapp.service.SyncService { <init>(...); }
 
-# view AndroidManifest.xml #generated:30
+# view AndroidManifest.xml #generated:31
 -keep class com.happyheal.happyhealapp.ui.address.AddressActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:15
+# view AndroidManifest.xml #generated:34
+-keep class com.happyheal.happyhealapp.ui.dataupload.DataUploadActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:16
 -keep class com.happyheal.happyhealapp.ui.main.MainActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:24
+# view AndroidManifest.xml #generated:35
+-keep class com.happyheal.happyhealapp.ui.orders.OrdersActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:25
 -keep class com.happyheal.happyhealapp.ui.previews.PreviewsActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:27
+# view AndroidManifest.xml #generated:28
 -keep class com.happyheal.happyhealapp.ui.verification.VerificationActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:17
+# view AndroidManifest.xml #generated:18
 -keep class com.happyheal.happyhealapp.ui.wizard.WizardActivity { <init>(...); }
 
 # view res/layout/verification_layout.xml #generated:96
@@ -327,3 +336,12 @@
 -keep class com.fortysevendeg.** { *; }
 -keep class macroid.** { *; }
 -keep class scala.Dynamic
+-keep class com.firebase.** { *; }
+-keep class org.apache.** { *; }
+-keepnames class com.fasterxml.jackson.** { *; }
+-keepnames class javax.servlet.** { *; }
+-keepnames class org.ietf.jgss.** { *; }
+-dontwarn org.w3c.dom.**
+-dontwarn org.joda.time.**
+-dontwarn org.shaded.apache.**
+-dontwarn org.ietf.jgss.**

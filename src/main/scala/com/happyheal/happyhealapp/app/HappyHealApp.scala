@@ -2,6 +2,7 @@ package com.happyheal.happyhealapp.app
 
 import android.app.Application
 import android.util.Log
+import com.firebase.client.{FirebaseApp, Firebase}
 
 /**
   * Created by pnagarjuna on 20/01/16.
@@ -13,6 +14,7 @@ class HappyHealApp extends Application {
   override def onCreate(): Unit = {
     super.onCreate()
     Log.d(LOG_TAG, "HappyHeal init")
+    Firebase.setAndroidContext(getApplicationContext)
   }
 
 }

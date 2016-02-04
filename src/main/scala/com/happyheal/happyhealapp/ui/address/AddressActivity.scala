@@ -6,16 +6,17 @@ import com.happyheal.happyhealapp.{TR, TypedFindView}
 import com.happyheal.happyhealapp.commons.ContextWrapperProvider
 import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
 import macroid.{ContextWrapper, Contexts}
+import macroid.FullDsl._
 
 /**
   * Created by pnagarjuna on 31/01/16.
   */
 class AddressActivity
   extends AppCompatActivity
-  with Contexts[AppCompatActivity]
-  with ContextWrapperProvider
-  with TypedFindView
-  with PersistenceServicesComponentImpl
+    with Contexts[AppCompatActivity]
+    with ContextWrapperProvider
+    with TypedFindView
+    with PersistenceServicesComponentImpl
     with AddressComposer {
 
   override lazy implicit val contextProvider: ContextWrapper = activityContextWrapper
@@ -27,7 +28,7 @@ class AddressActivity
     getSupportActionBar.setHomeButtonEnabled(true)
     getSupportActionBar().setDisplayHomeAsUpEnabled(true)
     getSupportActionBar().setDisplayShowHomeEnabled(true)
-
+    runUi(init())
   }
 
 }
