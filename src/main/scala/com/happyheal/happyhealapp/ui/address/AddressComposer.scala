@@ -25,7 +25,7 @@ trait AddressComposer {
       Ui {
         val phone = persistenceServices.getPhone("0")
         val fref = new Firebase("https://brilliant-heat-4158.firebaseio.com/")
-        fref.child(phone).push().child("order").setValue("address", new Firebase.CompletionListener() {
+        fref.push().child(phone).child("order").setValue("address", new Firebase.CompletionListener() {
           override def onComplete(firebaseError: FirebaseError, firebase: Firebase): Unit = {
             runUi(toast("done") <~ fry)
           }

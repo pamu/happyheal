@@ -65,7 +65,7 @@ trait VerificationComposer {
   def verifying(progress: Option[Int] = None)(implicit activityContextWrapper: ActivityContextWrapper) =
     (phoneContainer <~ vGone) ~
       (loaderContainer <~ vVisible) ~
-      (loadingMessage <~ tvText(progress.map { v => s"verifying ${v} %" }.getOrElse("verifying ..."))) ~
+      (loadingMessage <~ tvText(progress.map { v => s"Verifying ${v} %" }.getOrElse("Verifying ..."))) ~
       (circularLoader <~ vVisible) ~
       (circularLoader <~ Tweak[CircularFillableLoaders] {
         loader => loader.setProgress(100 - progress.map(v => v).getOrElse(0))

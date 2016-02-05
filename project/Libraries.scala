@@ -7,7 +7,7 @@ object Libraries {
   def onTest(dep: ModuleID): ModuleID = dep % "test"
 
   //Plugins:
-  lazy val wartRemover = "org.brianmckenna" %% "wartremover" % Versions.wartremoverV
+  //lazy val wartRemover = "org.brianmckenna" %% "wartremover" % Versions.wartremoverV
   lazy val androidSDKPlugin = "com.hanhuy.sbt" % "android-sdk-plugin" % Versions.androidPluginV
 
   object scala {
@@ -65,9 +65,15 @@ object Libraries {
 
   }
 
+  /**
   object json {
     lazy val json4s = "org.json4s" %% "json4s-native" % Versions.json4sV
-  }
+  } **/
+
+  /**
+  object json {
+    lazy val playJson = "com.typesafe.play" %% "play-json" % Versions.playJson
+  } **/
 
   object graphics {
     lazy val picasso = "com.squareup.picasso" % "picasso" % Versions.picassoV

@@ -2,7 +2,7 @@ import Libraries.android._
 import Libraries.macroid._
 import Libraries.playServices._
 import Libraries.apacheCommons._
-import Libraries.json._
+//import Libraries.json._
 import Libraries.date._
 import Libraries.graphics._
 import Libraries.test._
@@ -30,8 +30,6 @@ version := Versions.appV
 
 scalaVersion := Versions.scalaV
 
-scalacOptions ++= Seq("-feature", "-deprecation")
-
 javacOptions ++= Seq("-source", "1.7", "-target", "1.7")
 
 scalacOptions ++= Seq("-feature", "-deprecation", "-target:jvm-1.7")
@@ -52,13 +50,15 @@ libraryDependencies ++= Seq(
   firebase,
   fileutils,
   apacheCommonsLang,
-  json4s,
+  //json4s,
+  //playJson,
   picasso,
   prettytime,
   specs2,
   mockito,
-  androidTest,
-  compilerPlugin(Libraries.wartRemover))
+  androidTest
+  //compilerPlugin(Libraries.wartRemover)
+)
 
 apkSigningConfig in Android := Option(
   PromptPasswordsSigningConfig(
@@ -75,7 +75,7 @@ useProguard in Android := true
 
 proguardOptions in Android ++= Settings.proguardCommons
 
-proguardCache in Android := Seq.empty
+//proguardCache in Android := Seq.empty
 
 packagingOptions in Android := PackagingOptions(
   Seq("META-INF/LICENSE",

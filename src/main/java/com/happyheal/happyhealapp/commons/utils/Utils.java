@@ -3,6 +3,8 @@ package com.happyheal.happyhealapp.commons.utils;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.*;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
 
@@ -51,5 +53,19 @@ public class Utils {
         c.drawBitmap(bmpOriginal, 0, 0, paint);
         return bmpGrayScale;
     }
+
+    /**
+     * Checks internet connection
+     *
+     * @param mContext
+     * @return
+     */
+    public static boolean isNetworkAvailable(final Context mContext) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 
 }
