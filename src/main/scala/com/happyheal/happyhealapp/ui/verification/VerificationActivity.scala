@@ -42,8 +42,7 @@ class VerificationActivity
 
   override def onOptionsItemSelected(item: MenuItem): Boolean = {
     item.getItemId match {
-      case R.id.tick =>
-
+      case R.id.action_settings =>
         return true
       case _ => return super.onOptionsItemSelected(item)
     }

@@ -4,4 +4,9 @@
     <string name="action_settings">Settings</string>
 
     <string name="sinch_verification_key">47446047-38da-4ae5-82ca-2576295e533e</string>
+
+    <array name="cities">
+        <item>Bangalore</item>
+    </array>
+
 </resources>

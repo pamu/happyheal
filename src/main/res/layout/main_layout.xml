@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res/com.happyheal.happyhealapp"
+              xmlns:wheel="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
@@ -16,7 +17,9 @@
     </LinearLayout>
 
 
-    <LinearLayout android:layout_width="match_parent"
+    <LinearLayout android:id="@+id/image_capture_layout"
+                  android:layout_width="match_parent"
+                  android:visibility="gone"
                   android:layout_height="match_parent"
                   android:orientation="vertical"
                   android:background="@color/colorPrimary">
@@ -70,8 +73,8 @@
                           android:layout_weight="1"></LinearLayout>
             <android.support.design.widget.FloatingActionButton
                     android:id="@+id/fab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_margin="16dp"
                     android:clickable="true"
                     android:src="@drawable/ic_camera_white_48dp"
@@ -81,6 +84,65 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <RelativeLayout android:id="@+id/select_city_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/colorPrimary"
+                    android:visibility="visible">
+
+        <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/spinner_card_view"
+                android:background="@color/white"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                card_view:cardElevation="4dp"
+                card_view:cardCornerRadius="2dp">
+            <Spinner android:id="@+id/cities"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layout_margin="2dp"
+                     android:background="@null"
+                     android:entries="@array/cities"></Spinner>
+        </android.support.v7.widget.CardView>
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:layout_centerHorizontal="true"
+                  android:text="Select Your City"
+                  android:textSize="20dp"
+                  android:textColor="@color/white"
+                  android:layout_above="@id/spinner_card_view"/>
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentBottom="true"
+                  android:gravity="center"
+                  android:textSize="24dp"
+                  android:background="@color/colorPrimaryDark"
+                  android:textColor="@color/white"
+                  android:text="Next"
+                  android:padding="8dp"
+                  android:id="@+id/next"/>
+    </RelativeLayout>
+
+    <com.pnikosis.materialishprogress.ProgressWheel
+            android:id="@+id/busy"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@color/white"
+            wheel:matProg_barColor="@color/colorPrimary"
+            wheel:matProg_progressIndeterminate="true" />
 
 
 </LinearLayout>

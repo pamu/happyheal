@@ -2,7 +2,8 @@ package com.happyheal.happyhealapp.ui.address
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.happyheal.happyhealapp.{TR, TypedFindView}
+import android.view.{MenuItem, Menu}
+import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import com.happyheal.happyhealapp.commons.ContextWrapperProvider
 import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
 import macroid.{ContextWrapper, Contexts}
@@ -28,7 +29,20 @@ class AddressActivity
     getSupportActionBar.setHomeButtonEnabled(true)
     getSupportActionBar().setDisplayHomeAsUpEnabled(true)
     getSupportActionBar().setDisplayShowHomeEnabled(true)
-    runUi(init())
+  }
+
+  override def onCreateOptionsMenu(menu: Menu): Boolean = {
+    getMenuInflater.inflate(R.menu.menu_address, menu)
+    true
+  }
+
+  override def onOptionsItemSelected(item: MenuItem): Boolean = {
+    item.getItemId match {
+      case R.id.tick =>
+        onSubmit()
+        return true
+      case _ => return super.onOptionsItemSelected(item)
+    }
   }
 
 }

@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.CountDownTimer
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import com.happyheal.happyhealapp.commons.ContextWrapperProvider
+import com.happyheal.happyhealapp.commons.{ValidationRules, ContextWrapperProvider}
 import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
 import com.happyheal.happyhealapp.ui.address.AddressActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
@@ -94,12 +94,16 @@ trait VerificationComposer {
       (next <~ On.click {
         Ui {
           editText.map { et =>
-            val text = et.getText.toString
+            val text = et.getText.toString.trim
             if (!TextUtils.isEmpty(text)) {
-              runUi(toast(text)(contextProvider) <~ fry)
-              runUi(verifying())
-              timer.start()
-              startVerification("+91" + text.trim)
+              if (ValidationRules.isGoodPhone("+91" + text)) {
+                runUi(toast(text)(contextProvider) <~ fry)
+                runUi(verifying())
+                timer.start()
+                startVerification("+91" + text.trim)
+              } else {
+                runUi(toast("Please enter valid ten digit phone number.")(contextProvider) <~ fry)
+              }
             }
           }
         }

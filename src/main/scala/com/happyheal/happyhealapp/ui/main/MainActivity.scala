@@ -45,6 +45,8 @@ class MainActivity extends AppCompatActivity
     toolBar map setSupportActionBar
     getSupportActionBar.setHomeButtonEnabled(true)
 
+    init
+
     runUi {
       (fab <~ On.click {
         Ui {

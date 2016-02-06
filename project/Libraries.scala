@@ -103,6 +103,10 @@ object Libraries {
     lazy val firebase = "com.firebase" % "firebase-client-android" % Versions.firebase
   }
 
+  object materialProgressBar {
+    lazy val materialProgressBar = "com.pnikosis" % "materialish-progress" % Versions.materialProgressBar
+  }
+
   object test {
     lazy val specs2 = "org.specs2" %% "specs2-core" % Versions.specs2V % "test"
     lazy val androidTest = "com.google.android" % "android" % "4.1.1.4" % "test"

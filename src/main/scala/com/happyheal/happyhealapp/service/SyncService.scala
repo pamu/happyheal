@@ -12,7 +12,7 @@ class SyncService extends Service {
   override def onBind(intent: Intent): IBinder = null
 
   override def onStartCommand(intent: Intent, flags: Int, startId: Int): Int = {
-    //TODO: asyncronously check if something is available to sync and sync if available
+    //TODO: asynchronously check if something is available to sync and sync if available
     //TODO: syncing will only be done for non realtime actions
     return Service.START_STICKY
   }

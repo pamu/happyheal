@@ -12,6 +12,7 @@ import Libraries.smartTabLayout._
 import Libraries.showcaseView._
 import Libraries.fileutils._
 import Libraries.circularLoader._
+import Libraries.materialProgressBar._
 import Libraries.firebase._
 
 android.Plugin.androidBuild
@@ -47,6 +48,7 @@ libraryDependencies ++= Seq(
   aar(smartTabLayout),
   aar(showCaseView),
   aar(circularLoader),
+  materialProgressBar,
   firebase,
   fileutils,
   apacheCommonsLang,

@@ -18,10 +18,9 @@ trait AddressComposer {
   lazy val name = Option(findView(TR.name))
   lazy val completeAddress = Option(findView(TR.complete_address))
   lazy val pin = Option(findView(TR.pin))
-  lazy val next = Option(findView(TR.next))
 
-  def init() = {
-    (next <~ On.click {
+  def onSubmit(): Unit = {
+    runUi {
       Ui {
         val phone = persistenceServices.getPhone("0")
         val fref = new Firebase("https://brilliant-heat-4158.firebaseio.com/")
@@ -31,6 +30,6 @@ trait AddressComposer {
           }
         })
       }
-    })
+    }
   }
 }

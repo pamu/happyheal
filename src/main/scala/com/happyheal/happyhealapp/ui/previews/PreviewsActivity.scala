@@ -135,8 +135,8 @@ class PreviewViewHolder(layout: View)
       .load(preview.file)
       .fit()
       .centerCrop()
-      .placeholder(R.drawable.camera_icon)
-      .error(R.drawable.camera_icon)
+      .placeholder(R.drawable.ic_camera_white_48dp)
+      .error(R.drawable.ic_camera_white_48dp)
       .into(imageView)
 
   }
