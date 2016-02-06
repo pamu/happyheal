@@ -95,7 +95,6 @@
         <android.support.v7.widget.CardView
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/spinner_card_view"
-                android:background="@color/white"
                 android:layout_centerInParent="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -103,12 +102,12 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                card_view:cardElevation="4dp"
+                card_view:cardElevation="8dp"
+                card_view:cardBackgroundColor="@color/colorPrimaryDark"
                 card_view:cardCornerRadius="2dp">
             <Spinner android:id="@+id/cities"
                      android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:layout_margin="2dp"
+                     android:layout_height="wrap_content"
                      android:background="@null"
                      android:entries="@array/cities"></Spinner>
         </android.support.v7.widget.CardView>
@@ -122,9 +121,17 @@
                   android:textColor="@color/white"
                   android:layout_above="@id/spinner_card_view"/>
 
+        <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/next_card_view"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardElevation="8dp"
+                card_view:cardBackgroundColor="@color/colorPrimaryDark"
+                card_view:cardCornerRadius="2dp">
         <TextView android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_alignParentBottom="true"
                   android:gravity="center"
                   android:textSize="24dp"
                   android:background="@color/colorPrimaryDark"
@@ -132,10 +139,12 @@
                   android:text="Next"
                   android:padding="8dp"
                   android:id="@+id/next"/>
+        </android.support.v7.widget.CardView>
     </RelativeLayout>
 
     <com.pnikosis.materialishprogress.ProgressWheel
             android:id="@+id/busy"
+            android:visibility="gone"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerHorizontal="true"
