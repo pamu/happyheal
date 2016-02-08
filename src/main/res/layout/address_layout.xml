@@ -127,6 +127,35 @@
                           android:hint="Enter PIN code"/>
             </android.support.v7.widget.CardView>
 
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Select Place"
+                      android:textSize="20dp"
+                      android:padding="4dp"
+                      android:layout_marginTop="32dp"
+                      android:layout_marginLeft="8dp"
+                      android:textColor="@color/white"/>
+
+            <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/spinner_card_view"
+                    android:layout_centerInParent="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    card_view:cardElevation="8dp"
+                    card_view:cardBackgroundColor="@color/colorPrimaryDark"
+                    card_view:cardCornerRadius="2dp">
+                <Spinner android:id="@+id/cities"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:background="@null"
+                         android:entries="@array/cities"></Spinner>
+            </android.support.v7.widget.CardView>
+            
         </LinearLayout>
     </ScrollView>
 
