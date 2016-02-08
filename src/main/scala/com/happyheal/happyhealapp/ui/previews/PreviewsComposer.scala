@@ -70,6 +70,7 @@ trait PreviewsComposer {
 
   def addPreviews(list: List[Preview])(implicit activityContextWrapper: ActivityContextWrapper) =
     (next <~ vVisible) ~
+      (messageCenter <~ vGone) ~
       (previews <~ vVisible) ~
       (previews <~ rvAdapter(new PreviewsAdapter(list)(reload))) ~
       //(previews <~ rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper))) ~
@@ -82,6 +83,7 @@ trait PreviewsComposer {
                   val otpIntent = new Intent(activityContextWrapper.getOriginal, classOf[VerificationActivity])
                   activityContextWrapper.getOriginal.startActivity(otpIntent)
                 } else {
+                  runUi(empty)
                   runUi(toast("Add at least one Prescription to Go Ahead")(activityContextWrapper) <~ fry)
                 }
               }
