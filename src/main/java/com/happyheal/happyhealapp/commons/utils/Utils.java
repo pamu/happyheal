@@ -59,6 +59,14 @@ public class Utils {
         return bmpGrayScale;
     }
 
+    /**
+     *Scales the Image file
+     *
+     * @param path
+     * @param DESIREDWIDTH
+     * @param DESIREDHEIGHT
+     * @return
+     */
     public static String decodeFile(String path, int DESIREDWIDTH, int DESIREDHEIGHT) {
         String strMyImagePath = null;
         Bitmap scaledBitmap = null;

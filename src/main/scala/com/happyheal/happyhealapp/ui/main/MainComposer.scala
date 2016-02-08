@@ -16,17 +16,5 @@ trait MainComposer {
   lazy val title = Option(findView(TR.title))
   lazy val description = Option(findView(TR.description))
   lazy val fab = Option(findView(TR.fab))
-  lazy val citySpinner = Option(findView(TR.cities))
-
-  def init = {
-    runUi {
-      Ui {
-        citySpinner.map {
-          spinner =>
-            spinner.setAdapter(new CitySpinner(List("Bangalore", "Hyderabad")))
-        }
-      }
-    }
-  }
 
 }
