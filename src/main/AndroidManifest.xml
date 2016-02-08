@@ -29,11 +29,6 @@
         <activity
                 android:name=".ui.main.MainActivity"
                 android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <activity android:name=".ui.wizard.WizardActivity"
@@ -41,7 +36,6 @@
         </activity>
 
         <activity android:name=".ui.previews.PreviewsActivity"
-                  android:parentActivityName=".ui.main.MainActivity"
                   android:label="Previews">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
@@ -49,16 +43,19 @@
         </activity>
 
         <activity android:name=".ui.verification.VerificationActivity"
-                  android:label="Verification"
-                  android:parentActivityName=".ui.previews.PreviewsActivity">
+                  android:label="Verification">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".ui.previews.PreviewsActivity"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
 
         <activity android:name=".ui.address.AddressActivity"
-                  android:label="Address"
-                  android:parentActivityName=".ui.previews.PreviewsActivity">
+                  android:label="Address">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".ui.previews.PreviewsActivity"/>

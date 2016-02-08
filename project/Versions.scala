@@ -22,4 +22,5 @@ object Versions {
   val circularLoader = "1.0.0"
   val firebase = "2.5.0+"
   val materialProgressBar = "1.7"
+  val amazonS3 = "2.2.11"
 }

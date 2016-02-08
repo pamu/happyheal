@@ -107,6 +107,10 @@ object Libraries {
     lazy val materialProgressBar = "com.pnikosis" % "materialish-progress" % Versions.materialProgressBar
   }
 
+  object amazonS3 {
+    lazy val s3 = "com.amazonaws" % "aws-android-sdk-s3" % Versions.amazonS3
+  }
+
   object test {
     lazy val specs2 = "org.specs2" %% "specs2-core" % Versions.specs2V % "test"
     lazy val androidTest = "com.google.android" % "android" % "4.1.1.4" % "test"

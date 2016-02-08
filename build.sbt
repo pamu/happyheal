@@ -2,6 +2,7 @@ import Libraries.android._
 import Libraries.macroid._
 import Libraries.playServices._
 import Libraries.apacheCommons._
+
 //import Libraries.json._
 import Libraries.date._
 import Libraries.graphics._
@@ -14,6 +15,7 @@ import Libraries.fileutils._
 import Libraries.circularLoader._
 import Libraries.materialProgressBar._
 import Libraries.firebase._
+import Libraries.amazonS3._
 
 android.Plugin.androidBuild
 
@@ -52,6 +54,7 @@ libraryDependencies ++= Seq(
   firebase,
   fileutils,
   apacheCommonsLang,
+  s3,
   //json4s,
   //playJson,
   picasso,
