@@ -12,6 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            card_view:cardElevation="8dp"
             card_view:cardCornerRadius="4dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp">
@@ -33,9 +34,9 @@
             <ImageView
                     android:id="@+id/cross"
                     android:background="@drawable/circular_bg"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="4dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="2dp"
                     android:src="@drawable/ic_close_circle_black_48dp"
                     android:layout_gravity="right"/>
 
