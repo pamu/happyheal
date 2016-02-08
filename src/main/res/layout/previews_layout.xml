@@ -30,6 +30,7 @@
                   android:layout_height="wrap_content"
                   android:id="@+id/message_center"
                   android:gravity="center"
+                  android:layout_centerInParent="true"
                   android:orientation="vertical"
                   android:visibility="gone">
 
@@ -38,8 +39,8 @@
                   android:layout_gravity="center"
                   android:id="@+id/message"
                   android:text="No Previews Added"
-                  android:textSize="16dp"
-                  android:textColor="@color/colorPrimary"
+                  android:textSize="20dp"
+                  android:textColor="@color/white"
                   android:layout_margin="8dp"/>
 
         <Button android:layout_width="wrap_content"
@@ -47,10 +48,10 @@
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:text="Add Preview"
-                android:textSize="16dp"
+                android:textSize="20dp"
                 android:padding="8dp"
                 android:textColor="@color/white"
-                android:background="@drawable/round_corners"
+                android:background="@color/colorPrimary"
                 android:id="@+id/add_preview"/>
 
     </LinearLayout>

@@ -37,7 +37,7 @@ trait PreviewsComposer {
       override def accept(file: File, s: String): Boolean = FilenameUtils.getExtension(s) == "jpeg"
     })
 
-    if (files != null) {
+    if (files != null && files.length > 0) {
       Future {
         files.map { file =>
           Preview(file)
@@ -47,7 +47,7 @@ trait PreviewsComposer {
       } recoverUi {
         case ex =>
           ex.printStackTrace()
-          empty
+          Ui {}
       }
     } else {
       runUi(empty)
@@ -55,7 +55,8 @@ trait PreviewsComposer {
   }
 
   def empty(implicit activityContextWrapper: ActivityContextWrapper) =
-    (next <~ vGone) ~
+    (previews <~ vGone) ~
+      (next <~ vGone) ~
       (messageCenter <~ vVisible) ~
       (message <~ vVisible) ~
       (message <~ tvText("No Medical Prescriptions Added")) ~
