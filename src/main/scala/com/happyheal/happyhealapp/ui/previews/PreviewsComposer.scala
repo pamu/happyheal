@@ -63,7 +63,7 @@ trait PreviewsComposer {
       (addPreview <~ vVisible) ~
       (addPreview <~ On.click {
         Ui {
-          runUi(toast("hello world")(activityContextWrapper) <~ fry)
+          ImageCapture.showDialog(activityContextWrapper)
         }
       })
 
