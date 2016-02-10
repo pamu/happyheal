@@ -4,8 +4,8 @@ import java.io.{File, FilenameFilter}
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
+import com.happyheal.happyhealapp.ui.address.AddressActivity
 import com.happyheal.happyhealapp.ui.main.ImageCapture
-import com.happyheal.happyhealapp.ui.verification.VerificationActivity
 import com.happyheal.happyhealapp.{TR, TypedFindView}
 import macroid.FullDsl._
 import com.fortysevendeg.macroid.extras.ViewTweaks._
@@ -52,6 +52,7 @@ trait PreviewsComposer {
     } else {
       runUi(empty)
     }
+
   }
 
   def empty(implicit activityContextWrapper: ActivityContextWrapper) =
@@ -63,7 +64,7 @@ trait PreviewsComposer {
       (addPreview <~ vVisible) ~
       (addPreview <~ On.click {
         Ui {
-          ImageCapture.showDialog(activityContextWrapper)
+          ImageCapture.showDialog()(activityContextWrapper)
         }
       })
 
@@ -80,8 +81,8 @@ trait PreviewsComposer {
             rv =>
               if (rv.getAdapter != null) {
                 if (rv.getAdapter.getItemCount > 0) {
-                  val otpIntent = new Intent(activityContextWrapper.getOriginal, classOf[VerificationActivity])
-                  activityContextWrapper.getOriginal.startActivity(otpIntent)
+                  val addressIntent = new Intent(activityContextWrapper.getOriginal, classOf[AddressActivity])
+                  activityContextWrapper.getOriginal.startActivity(addressIntent)
                 } else {
                   runUi(empty)
                   runUi(toast("Add at least one Prescription to Go Ahead")(activityContextWrapper) <~ fry)

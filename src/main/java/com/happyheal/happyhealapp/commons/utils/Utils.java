@@ -6,18 +6,23 @@ import android.graphics.*;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.Random;
+
 
 /**
  * Created by pnagarjuna on 02/02/16.
  */
 public class Utils {
 
+    public static final String TAG = Utils.class.getSimpleName();
     /**
      * Get file path from URI
      *
@@ -43,7 +48,7 @@ public class Utils {
      * @param bmpOriginal
      * @return
      */
-    public Bitmap toGrayScale(Bitmap bmpOriginal) {
+    public static Bitmap toGrayScale(Bitmap bmpOriginal) {
         int width, height;
         height = bmpOriginal.getHeight();
         width = bmpOriginal.getWidth();
@@ -60,14 +65,15 @@ public class Utils {
     }
 
     /**
-     *Scales the Image file
+     * Scales the Image
      *
-     * @param path
+     * @param imageFile
      * @param DESIREDWIDTH
      * @param DESIREDHEIGHT
      * @return
      */
-    public static String decodeFile(String path, int DESIREDWIDTH, int DESIREDHEIGHT) {
+    public static String decodeFile(File imageFile, int DESIREDWIDTH, int DESIREDHEIGHT) {
+        String path = imageFile.getPath();
         String strMyImagePath = null;
         Bitmap scaledBitmap = null;
 
@@ -83,15 +89,19 @@ public class Utils {
                 return path;
             }
 
+            //Make the image gray
+
+            scaledBitmap = toGrayScale(scaledBitmap);
+
             // Store to tmp file
 
             String extr = Environment.getExternalStorageDirectory().toString();
-            File mFolder = new File(extr + "/TMMFOLDER");
+            File mFolder = new File(extr + "/.happy_heal");
             if (!mFolder.exists()) {
                 mFolder.mkdir();
             }
 
-            String s = "tmp.png";
+            String s = imageFile.getName();
 
             File f = new File(mFolder.getAbsolutePath(), s);
 
@@ -99,7 +109,7 @@ public class Utils {
             FileOutputStream fos = null;
             try {
                 fos = new FileOutputStream(f);
-                scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 75, fos);
+                scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos);
                 fos.flush();
                 fos.close();
             } catch (FileNotFoundException e) {
@@ -133,6 +143,5 @@ public class Utils {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-
 
 }

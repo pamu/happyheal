@@ -28,13 +28,10 @@ class VerificationActivity
     super.onCreate(savedInstanceState)
     setContentView(TR.layout.verification_layout.id)
     toolBar map setSupportActionBar
-    getSupportActionBar.setHomeButtonEnabled(true)
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true)
-    getSupportActionBar().setDisplayShowHomeEnabled(true)
-
     runUi(init)
   }
 
+  /**
   override def onCreateOptionsMenu(menu: Menu): Boolean = {
     getMenuInflater.inflate(R.menu.menu_verification, menu)
     true
@@ -46,6 +43,6 @@ class VerificationActivity
         return true
       case _ => return super.onOptionsItemSelected(item)
     }
-  }
+  } **/
 
 }

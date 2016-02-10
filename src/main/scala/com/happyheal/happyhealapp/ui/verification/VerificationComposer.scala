@@ -7,6 +7,7 @@ import android.text.TextUtils
 import com.happyheal.happyhealapp.commons.{ValidationRules, ContextWrapperProvider}
 import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
 import com.happyheal.happyhealapp.ui.address.AddressActivity
+import com.happyheal.happyhealapp.ui.main.MainActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders
 import com.sinch.verification.{VerificationListener, SinchVerification}
@@ -135,8 +136,8 @@ trait VerificationComposer {
     timer.cancel()
     runUi(verified)
     phoneOption.map(persistenceServices.setPhone(_))
-    val addressIntent = new Intent(activityContextWrapper.getOriginal, classOf[AddressActivity])
     finish()
+    val addressIntent = new Intent(activityContextWrapper.getOriginal, classOf[MainActivity])
     startActivity(addressIntent)
   }
 

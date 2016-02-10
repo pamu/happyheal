@@ -78,7 +78,7 @@ class PreviewsActivity
   override def onOptionsItemSelected(item: MenuItem): Boolean = {
     item.getItemId match {
       case R.id.plus =>
-        ImageCapture.showDialog(activityContextWrapper)
+        ImageCapture.showDialog()(activityContextWrapper)
         return true
       case _ => return super.onOptionsItemSelected(item)
     }

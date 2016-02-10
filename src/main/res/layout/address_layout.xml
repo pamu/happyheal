@@ -1,172 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:background="@color/colorPrimaryDark"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<android.support.v4.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:background="@color/colorPrimaryDark"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
 
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_gravity="top"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <include
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar"/>
-    </LinearLayout>
-
-    <ScrollView android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:orientation="vertical">
-
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="Name"
-                      android:textSize="20dp"
-                      android:padding="4dp"
-                      android:layout_marginTop="32dp"
-                      android:textColor="@color/white"/>
-
-            <android.support.v7.widget.CardView
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/name_card_view"
-                    android:background="@color/white"
-                    android:layout_gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    card_view:cardElevation="4dp"
-                    card_view:cardBackgroundColor="@color/colorPrimary"
-                    card_view:cardCornerRadius="2dp">
-                <EditText android:id="@+id/name"
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:background="@color/colorPrimary"
-                          android:textSize="20dp"
-                          android:hint="Enter Name"
-                          android:gravity="center"
-                          android:padding="8dp"
-                          android:maxLength="20"
-                          android:layout_margin="2dp"/>
-            </android.support.v7.widget.CardView>
-
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="Complete Address"
-                      android:textSize="20dp"
-                      android:padding="4dp"
-                      android:layout_marginTop="32dp"
-                      android:layout_marginLeft="8dp"
-                      android:textColor="@color/white"/>
-            <android.support.v7.widget.CardView
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/complete_address_card_view"
-                    android:background="@color/white"
-                    android:layout_gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    card_view:cardElevation="8dp"
-                    card_view:cardBackgroundColor="@color/colorPrimary"
-                    card_view:cardCornerRadius="2dp">
-                <EditText android:id="@+id/complete_address"
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:background="@color/colorPrimary"
-                          android:textColor="@color/white"
-                          android:textSize="20dp"
-                          android:gravity="start"
-                          android:padding="8dp"
-                          android:hint="Enter Complete Address"
-                          android:lines="4"
-                          android:maxLength="200"
-                          android:layout_margin="2dp"/>
-            </android.support.v7.widget.CardView>
-
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="PIN code"
-                      android:textSize="20dp"
-                      android:padding="4dp"
-                      android:layout_marginTop="32dp"
-                      android:layout_marginLeft="8dp"
-                      android:textColor="@color/white"/>
-            <android.support.v7.widget.CardView
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/pin_card_view"
-                    card_view:cardBackgroundColor="@color/colorPrimary"
-                    android:layout_gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    card_view:cardElevation="8dp"
-                    card_view:cardCornerRadius="2dp">
-                <EditText android:id="@+id/pin"
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:gravity="center"
-                          android:textSize="20dp"
-                          android:padding="8dp"
-                          android:textColor="@color/white"
-                          android:background="@color/colorPrimary"
-                          android:inputType="number"
-                          android:maxLength="6"
-                          android:hint="Enter PIN code"/>
-            </android.support.v7.widget.CardView>
-
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="Select Place"
-                      android:textSize="20dp"
-                      android:padding="4dp"
-                      android:layout_marginTop="32dp"
-                      android:layout_marginLeft="8dp"
-                      android:textColor="@color/white"/>
-
-            <android.support.v7.widget.CardView
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/spinner_card_view"
-                    android:layout_centerInParent="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    card_view:cardElevation="8dp"
-                    card_view:cardBackgroundColor="@color/colorPrimaryDark"
-                    card_view:cardCornerRadius="2dp">
-                <Spinner android:id="@+id/cities"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:background="@null"
-                         android:entries="@array/cities"></Spinner>
-            </android.support.v7.widget.CardView>
-
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_gravity="top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <include
+                    android:id="@+id/toolbar"
+                    layout="@layout/toolbar"/>
         </LinearLayout>
-    </ScrollView>
 
-    <!--<TextView android:layout_width="match_parent"-->
-              <!--android:layout_height="wrap_content"-->
-              <!--android:layout_gravity="bottom"-->
-              <!--android:gravity="center"-->
-              <!--android:textSize="24dp"-->
-              <!--android:background="@color/colorPrimary"-->
-              <!--android:textColor="@color/white"-->
-              <!--android:text="Next"-->
-              <!--android:padding="8dp"-->
-              <!--android:id="@+id/next"/>-->
-</LinearLayout>
+        <ScrollView android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:orientation="vertical">
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Name"
+                          android:textSize="20dp"
+                          android:padding="4dp"
+                          android:layout_marginTop="32dp"
+                          android:textColor="@color/white"/>
+
+                <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/name_card_view"
+                        android:background="@color/white"
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        card_view:cardElevation="4dp"
+                        card_view:cardBackgroundColor="@color/colorPrimary"
+                        card_view:cardCornerRadius="2dp">
+                    <EditText android:id="@+id/name"
+                              android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+                              android:background="@color/colorPrimary"
+                              android:textSize="20dp"
+                              android:hint="Enter Name"
+                              android:textColorHint="@color/textColorPrimary"
+                              android:textColor="@color/textColorPrimary"
+                              android:gravity="center"
+                              android:padding="8dp"
+                              android:maxLength="20"
+                              android:layout_margin="2dp"/>
+                </android.support.v7.widget.CardView>
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Complete Address"
+                          android:textSize="20dp"
+                          android:padding="4dp"
+                          android:layout_marginTop="32dp"
+                          android:layout_marginLeft="8dp"
+                          android:textColor="@color/white"/>
+                <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/complete_address_card_view"
+                        android:background="@color/white"
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        card_view:cardElevation="8dp"
+                        card_view:cardBackgroundColor="@color/colorPrimary"
+                        card_view:cardCornerRadius="2dp">
+                    <EditText android:id="@+id/complete_address"
+                              android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+                              android:background="@color/colorPrimary"
+                              android:textColorHint="@color/textColorPrimary"
+                              android:textColor="@color/textColorPrimary"
+                              android:textSize="20dp"
+                              android:gravity="start"
+                              android:padding="8dp"
+                              android:hint="Enter Complete Address"
+                              android:lines="4"
+                              android:maxLength="200"
+                              android:layout_margin="2dp"/>
+                </android.support.v7.widget.CardView>
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="PIN code"
+                          android:textSize="20dp"
+                          android:padding="4dp"
+                          android:layout_marginTop="32dp"
+                          android:layout_marginLeft="8dp"
+                          android:textColor="@color/white"/>
+                <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/pin_card_view"
+                        card_view:cardBackgroundColor="@color/colorPrimary"
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        card_view:cardElevation="8dp"
+                        card_view:cardCornerRadius="2dp">
+                    <EditText android:id="@+id/pin"
+                              android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+                              android:gravity="center"
+                              android:textSize="20dp"
+                              android:padding="8dp"
+                              android:textColorHint="@color/textColorPrimary"
+                              android:textColor="@color/textColorPrimary"
+                              android:background="@color/colorPrimary"
+                              android:inputType="number"
+                              android:maxLength="6"
+                              android:hint="Enter PIN code"/>
+                </android.support.v7.widget.CardView>
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Select Place"
+                          android:textSize="20dp"
+                          android:padding="4dp"
+                          android:layout_marginTop="32dp"
+                          android:layout_marginLeft="8dp"
+                          android:textColor="@color/white"/>
+
+                <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/spinner_card_view"
+                        android:layout_centerInParent="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        card_view:cardElevation="8dp"
+                        card_view:cardBackgroundColor="@color/colorPrimary"
+                        card_view:cardCornerRadius="2dp">
+                    <Spinner android:id="@+id/cities"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:background="@null"
+                             android:entries="@array/cities"></Spinner>
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!--<TextView android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:gravity="center"-->
+        <!--android:textSize="24dp"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:text="Next"-->
+        <!--android:padding="8dp"-->
+        <!--android:id="@+id/next"/>-->
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>

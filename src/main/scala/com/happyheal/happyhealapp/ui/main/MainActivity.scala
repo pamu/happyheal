@@ -17,6 +17,7 @@ import com.happyheal.happyhealapp.commons.utils.Utils
 import com.happyheal.happyhealapp.modules.notifications.impl.NotificationServicesComponentImpl
 import com.happyheal.happyhealapp.modules.persistence.impl.PersistenceServicesComponentImpl
 import com.happyheal.happyhealapp.ui.previews.PreviewsActivity
+import com.happyheal.happyhealapp.ui.verification.VerificationActivity
 import com.happyheal.happyhealapp.{R, TR, TypedFindView}
 import macroid.{Ui, ActivityContextWrapper, ContextWrapper, Contexts}
 import macroid.FullDsl._
@@ -37,6 +38,8 @@ class MainActivity extends AppCompatActivity
   with PersistenceServicesComponentImpl
   with NotificationServicesComponentImpl {
 
+  var imagePath: Option[String] = None
+
   override implicit lazy val contextProvider: ContextWrapper = activityContextWrapper
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
@@ -45,12 +48,20 @@ class MainActivity extends AppCompatActivity
     toolBar map setSupportActionBar
     getSupportActionBar.setHomeButtonEnabled(true)
 
+    val phone = persistenceServices.getPhone("")
+
+    if (phone == "") {
+      finish()
+      val loginIntent = new Intent(getApplicationContext, classOf[VerificationActivity])
+      startActivity(loginIntent)
+    }
+
     runUi {
       (fab <~ On.click {
         Ui {
           //val file = ImageCapture.randomFile("jpeg")
           //ImageCapture.takePhoto(file)
-          ImageCapture.showDialog
+          ImageCapture.showDialog(Some(file => imagePath = Some(file)))
         }
       })
     }
@@ -70,12 +81,29 @@ class MainActivity extends AppCompatActivity
 
   override def onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Unit = {
     if (requestCode == ImageCapture.REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-      launchPreviews()
+      imagePath.map { filePath =>
+        runUi(toast("Please wait ...")(activityContextWrapper) <~ fry)
+        Future {
+          val file = new File(filePath)
+          Utils.decodeFile(file, 800, 1024)
+        } onComplete {
+          case Success(sValue) =>
+            runUi(toast("copying successful")(activityContextWrapper) <~ fry)
+            launchPreviews()
+          case Failure(fValue) =>
+            runUi(toast("copying failed, reason: " + fValue.getMessage + " cause: " + fValue.getCause)(activityContextWrapper) <~ fry)
+            launchPreviews()
+        }
+      }
     } else if (requestCode == ImageCapture.REQUEST_OPEN_GALLERY && resultCode == Activity.RESULT_OK) {
       val uri = data.getData
       runUi(toast("Please wait ...")(activityContextWrapper) <~ fry)
       Future {
-        ImageCapture.copyFile(new File(Utils.getRealPathFromURI(getApplicationContext, uri)), ImageCapture.randomFile("jpeg"))
+        val filePath = Utils.getRealPathFromURI(getApplicationContext, uri);
+        val file = new File(filePath)
+        val dstFile = ImageCapture.randomFile("jpeg")
+        ImageCapture.copyFile(file, dstFile)
+        Utils.decodeFile(dstFile, 800, 1024)
       } onComplete {
         case Success(sValue) =>
           runUi(toast("copying successful")(activityContextWrapper) <~ fry)
@@ -108,7 +136,8 @@ object ImageCapture {
   }
 
   def randomFile(extension: String)(implicit activityContextWrapper: ActivityContextWrapper): File = {
-    val file = new File(imagesFolder, "happy_heal-" + UUID.randomUUID().toString + "." + extension.trim)
+    //val file = new File(imagesFolder, "happy_heal-" + UUID.randomUUID().toString + "." + extension.trim)
+    val file = new File(imagesFolder, UUID.randomUUID().toString + "." + extension.trim)
     file
   }
 
@@ -127,10 +156,11 @@ object ImageCapture {
     out.close()
   }
 
-  def takePhoto(file: File)(implicit activityContextWrapper: ActivityContextWrapper): Unit = {
+  def takePhoto(file: File)(f: Option[ String => Unit] = None)(implicit activityContextWrapper: ActivityContextWrapper): Unit = {
     val takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
     val uri = Uri.fromFile(file)
     takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+    f.foreach(x => x(file.getPath))
     if (takePhotoIntent.resolveActivity(activityContextWrapper.application.getPackageManager) != null) {
       activityContextWrapper.getOriginal.startActivityForResult(
         Intent.createChooser(takePhotoIntent, "Capture Prescription"), REQUEST_IMAGE_CAPTURE)
@@ -149,7 +179,7 @@ object ImageCapture {
     } else runUi(toast("No Application installed to Open Gallery.")(activityContextWrapper) <~ fry)
   }
 
-  def showDialog(implicit activityContextWrapper: ActivityContextWrapper) = {
+  def showDialog(code: Option[String => Unit] = None)(implicit activityContextWrapper: ActivityContextWrapper) = {
     val builder = new AlertDialog.Builder(activityContextWrapper.getOriginal)
     builder.setTitle("Source")
 
@@ -162,7 +192,7 @@ object ImageCapture {
         i match {
           case 0 =>
             val file = randomFile("jpeg")
-            takePhoto(file)
+            takePhoto(file)(code)
           case 1 =>
             openGallery
           case 2 =>
