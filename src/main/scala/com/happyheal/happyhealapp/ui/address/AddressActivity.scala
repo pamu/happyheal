@@ -29,7 +29,7 @@ class AddressActivity
     getSupportActionBar.setHomeButtonEnabled(true)
     getSupportActionBar().setDisplayHomeAsUpEnabled(true)
     getSupportActionBar().setDisplayShowHomeEnabled(true)
-    runUi(addPlaces(List("Bangalore", "Hyderabad")))
+    runUi(addPlaces(List("Silkboard", "Madiwala")))
   }
 
   override def onCreateOptionsMenu(menu: Menu): Boolean = {
