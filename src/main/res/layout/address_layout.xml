@@ -34,7 +34,7 @@
                           android:textSize="20dp"
                           android:padding="4dp"
                           android:layout_marginTop="32dp"
-                          android:textColor="@color/white"/>
+                          android:textColor="@color/colorPrimary"/>
 
                 <android.support.v7.widget.CardView
                         xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -48,16 +48,16 @@
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
                         card_view:cardElevation="4dp"
-                        card_view:cardBackgroundColor="@color/colorPrimary"
+                        card_view:cardBackgroundColor="@color/white"
                         card_view:cardCornerRadius="2dp">
                     <EditText android:id="@+id/name"
                               android:layout_width="match_parent"
                               android:layout_height="match_parent"
-                              android:background="@color/colorPrimary"
+                              android:background="@color/white"
                               android:textSize="20dp"
                               android:hint="Enter Name"
-                              android:textColorHint="@color/textColorPrimary"
-                              android:textColor="@color/textColorPrimary"
+                              android:textColorHint="@color/colorPrimary"
+                              android:textColor="@color/colorPrimary"
                               android:gravity="center"
                               android:padding="8dp"
                               android:maxLength="20"
@@ -71,7 +71,7 @@
                           android:padding="4dp"
                           android:layout_marginTop="32dp"
                           android:layout_marginLeft="8dp"
-                          android:textColor="@color/white"/>
+                          android:textColor="@color/colorPrimary"/>
                 <android.support.v7.widget.CardView
                         xmlns:card_view="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/complete_address_card_view"
@@ -84,14 +84,14 @@
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
                         card_view:cardElevation="8dp"
-                        card_view:cardBackgroundColor="@color/colorPrimary"
+                        card_view:cardBackgroundColor="@color/white"
                         card_view:cardCornerRadius="2dp">
                     <EditText android:id="@+id/complete_address"
                               android:layout_width="match_parent"
                               android:layout_height="match_parent"
-                              android:background="@color/colorPrimary"
-                              android:textColorHint="@color/textColorPrimary"
-                              android:textColor="@color/textColorPrimary"
+                              android:background="@color/white"
+                              android:textColorHint="@color/colorPrimary"
+                              android:textColor="@color/colorPrimary"
                               android:textSize="20dp"
                               android:gravity="start"
                               android:padding="8dp"
@@ -108,7 +108,7 @@
                           android:padding="4dp"
                           android:layout_marginTop="32dp"
                           android:layout_marginLeft="8dp"
-                          android:textColor="@color/white"/>
+                          android:textColor="@color/colorPrimary"/>
                 <android.support.v7.widget.CardView
                         xmlns:card_view="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/pin_card_view"
@@ -128,9 +128,9 @@
                               android:gravity="center"
                               android:textSize="20dp"
                               android:padding="8dp"
-                              android:textColorHint="@color/textColorPrimary"
-                              android:textColor="@color/textColorPrimary"
-                              android:background="@color/colorPrimary"
+                              android:textColorHint="@color/colorPrimary"
+                              android:textColor="@color/colorPrimary"
+                              android:background="@color/white"
                               android:inputType="number"
                               android:maxLength="6"
                               android:hint="Enter PIN code"/>
@@ -143,7 +143,7 @@
                           android:padding="4dp"
                           android:layout_marginTop="32dp"
                           android:layout_marginLeft="8dp"
-                          android:textColor="@color/white"/>
+                          android:textColor="@color/colorPrimary"/>
 
                 <android.support.v7.widget.CardView
                         xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -156,7 +156,7 @@
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
                         card_view:cardElevation="8dp"
-                        card_view:cardBackgroundColor="@color/colorPrimary"
+                        card_view:cardBackgroundColor="@color/white"
                         card_view:cardCornerRadius="2dp">
                     <Spinner android:id="@+id/cities"
                              android:layout_width="match_parent"

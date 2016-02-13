@@ -4,13 +4,16 @@ import java.io.{File, FilenameFilter}
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.RecyclerView.OnScrollListener
+import com.happyheal.happyhealapp.commons.ui.AutofitRecyclerView
 import com.happyheal.happyhealapp.ui.address.AddressActivity
 import com.happyheal.happyhealapp.ui.main.ImageCapture
 import com.happyheal.happyhealapp.{TR, TypedFindView}
 import macroid.FullDsl._
 import com.fortysevendeg.macroid.extras.ViewTweaks._
 import com.fortysevendeg.macroid.extras.TextTweaks._
-import macroid.{Contexts, ActivityContextWrapper, Ui}
+import macroid.{Tweak, Contexts, ActivityContextWrapper, Ui}
 import com.fortysevendeg.macroid.extras.RecyclerViewTweaks._
 import org.apache.commons.io.FilenameUtils
 
@@ -30,6 +33,17 @@ trait PreviewsComposer {
   lazy val addPreview = Option(findView(TR.add_preview))
   lazy val messageCenter = Option(findView(TR.message_center))
   lazy val message = Option(findView(TR.message))
+
+  def rvScroll: Tweak[AutofitRecyclerView] = {
+    Tweak[AutofitRecyclerView] { rv =>
+      rv.addOnScrollListener(new OnScrollListener {
+        override def onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int): Unit = {
+          if (dy > 0) runUi(next <~ vGone)
+          else runUi(next <~ vVisible)
+        }
+      })
+    }
+  }
 
   def reload: Unit = {
 
@@ -72,6 +86,7 @@ trait PreviewsComposer {
   def addPreviews(list: List[Preview])(implicit activityContextWrapper: ActivityContextWrapper) =
     (next <~ vVisible) ~
       (messageCenter <~ vGone) ~
+      (previews <~ rvScroll) ~
       (previews <~ vVisible) ~
       (previews <~ rvAdapter(new PreviewsAdapter(list)(reload))) ~
       //(previews <~ rvAddItemDecoration(new MainItemDecorator()(activityContextWrapper))) ~
