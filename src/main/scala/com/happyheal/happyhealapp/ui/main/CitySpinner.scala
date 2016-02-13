@@ -1,7 +1,7 @@
 package com.happyheal.happyhealapp.ui.main
 
 import android.view.{LayoutInflater, ViewGroup, View}
-import android.widget.{TextView, SpinnerAdapter, BaseAdapter}
+import android.widget.{ImageView, TextView, SpinnerAdapter, BaseAdapter}
 import com.happyheal.happyhealapp.R
 import macroid.ActivityContextWrapper
 
@@ -18,6 +18,8 @@ class CitySpinner(cities: List[String])(implicit activityContextWrapper: Activit
   override def getView(i: Int, view: View, viewGroup: ViewGroup): View = {
     val rootView = LayoutInflater.from(activityContextWrapper.application).inflate(R.layout.spinner_item, viewGroup, false)
     val textView = rootView.findViewById(R.id.spinner_item_text).asInstanceOf[TextView]
+    val chevron = rootView.findViewById(R.id.chevron).asInstanceOf[ImageView]
+    chevron.setColorFilter(activityContextWrapper.application.getResources.getColor(R.color.colorPrimary))
     textView.setText(cities(i).toString)
     rootView
   }
