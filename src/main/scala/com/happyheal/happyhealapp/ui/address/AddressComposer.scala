@@ -126,18 +126,19 @@ trait AddressComposer {
 
                   Log.d("place order", c.mkString(","))
 
-                  val map = Map(phone -> mapAsJavaMap(Map[String, AnyRef](
+                  val map = mapAsJavaMap(Map[String, AnyRef](
+                    "phone" -> phone,
                     "name" -> name.get,
                     "complete_address" -> completeAddress.get,
                     "pin" -> pin.get.toString,
                     "place" -> place.get,
                     "images" -> c.mkString(","),
                     "timestamp" -> ServerValue.TIMESTAMP
-                  )))
+                  ))
 
                   Log.d("place order", map.mkString(","))
 
-                  fref.push().setValue(mapAsJavaMap[String, util.Map[String, AnyRef]](map), new CompletionListener {
+                  fref.push().setValue(map, new CompletionListener {
                     override def onComplete(firebaseError: FirebaseError, firebase: Firebase): Unit = {
                       runUi(toast("done, order placed") <~ fry)
                       pDialog.dismiss()
