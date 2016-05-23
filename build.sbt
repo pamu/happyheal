@@ -1,6 +1,6 @@
 import Libraries.android._
 import Libraries.macroid._
-import Libraries.playServices._
+//import Libraries.playServices._
 import Libraries.apacheCommons._
 
 //import Libraries.json._
@@ -46,7 +46,7 @@ libraryDependencies ++= Seq(
   aar(androidRecyclerview),
   aar(androidDesign),
   aar(macroidExtras),
-  aar(playServicesBase),
+  //aar(playServicesBase),
   aar(smartTabLayout),
   aar(showCaseView),
   aar(circularLoader),
