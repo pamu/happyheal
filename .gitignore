@@ -24,3 +24,4 @@ project/plugins/project/
 project/target
 project/project
 *.iml
+.DS_Store
