@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 /**
  * Created by pnagarjuna on 28/01/16.
  */
-public class AutoFitRecyclerView extends RecyclerView {
+public class AutofitRecyclerView extends RecyclerView {
     int columnWidth;
     GridLayoutManager manager;
 
